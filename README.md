@@ -1,1 +1,3 @@
 Chat em desenvolvimento...
+
+https://api.travis-ci.org/jefperito/chatz.png
