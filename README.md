@@ -1,5 +1,3 @@
-Chat em desenvolvimento...
+Chat em desenvolvimento... ![Build Status](https://api.travis-ci.org/jefperito/chatz.png)
 
 https://api.travis-ci.org/jefperito/chatz.png
-
-[![Build Status](https://api.travis-ci.org/jefperito/chatz.png)]
