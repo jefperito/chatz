@@ -40,6 +40,7 @@ var container = (function() {
 	return {
 		add: add,
 		get: get,
+		set: set,
 		reset: reset
 	};
 })();
