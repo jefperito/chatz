@@ -1,0 +1,12 @@
+{
+	"name": "Chatz",
+	"version": "0.0.1",
+	"main": "index.js",
+	"dependencies": {
+		"socket.io": ">= 0.9"
+	},
+	"devDependencies": {
+		"mocha": ">= 1.15.1",
+		"sinon": ">= x.x.x"
+	}
+}
