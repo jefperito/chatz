@@ -26,4 +26,14 @@ suite('container', function() {
 			}
 		});
 	});
+
+	test('should permits set an item', function() {
+		var db  = {};
+		var db2 = {whatever: 123};
+
+		container.add('db', db);
+		container.set('db', db2);
+
+		assert.deepEqual(db2, container.get('db'));
+	});
 });

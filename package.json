@@ -10,6 +10,7 @@
 	},
 	"devDependencies": {
 		"mocha": ">= 1.15.1",
-		"sinon": "*"
+		"sinon": "*",
+		"istanbul": ">= 0.1.46"
 	}
 }
