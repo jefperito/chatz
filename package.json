@@ -10,6 +10,6 @@
 	},
 	"devDependencies": {
 		"mocha": ">= 1.15.1",
-		"sinon": ">= x.x.x"
+		"sinon": "*"
 	}
 }
