@@ -1,5 +1,7 @@
 
 var users = (function() {
+	'use strict';
+
 	var validator = require('./validator');
 
 	var _usersList = [];

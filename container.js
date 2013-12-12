@@ -17,12 +17,20 @@ var container = (function() {
 		box[namespace] = item;
 	}
 
-	function get(namespace, item) {
+	function get(namespace) {
 		if (!box.hasOwnProperty(namespace)) {
 			throw new InvalidItemException('Nao existe item com este namespace.');
 		}
 
 		return box[namespace];
+	}
+
+	function set(namespace, item) {
+		if (!box.hasOwnProperty(namespace)) {
+			throw new InvalidItemException('Nao existe item com este namespace.');
+		}
+
+		box[namespace] = item;
 	}
 
 	function reset() {

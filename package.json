@@ -1,7 +1,10 @@
 {
 	"name": "Chatz",
 	"version": "0.0.1",
-	"main": "index.js",
+	"scripts": {
+		"start": "node index.js &",
+		"test": "mocha -u tdd tests/"
+	},
 	"dependencies": {
 		"socket.io": ">= 0.9"
 	},
