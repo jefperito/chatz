@@ -1,17 +1,19 @@
 {
-	"name": "Chatz",
-	"version": "0.0.1",
-	"scripts": {
-		"start": "node index.js &",
-		"test": "mocha -u tdd tests/"
-	},
-	"dependencies": {
-		"socket.io": ">= 0.9"
-	},
-	"devDependencies": {
-		"mocha": ">= 1.15.1",
-		"sinon": "*",
-		"istanbul": ">= 0.1.46",
-		"coveralls": "*"
-	}
+  "name": "Chatz",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "node index.js &",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec -u tdd ./tests/ && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
+  },
+  "dependencies": {
+    "socket.io": ">= 0.9",
+    "coveralls": "~2.6.0",
+    "mocha-lcov-reporter": "0.0.1"
+  },
+  "devDependencies": {
+    "mocha": ">= 1.15.1",
+    "sinon": "*",
+    "istanbul": ">= 0.1.46",
+    "coveralls": "*"
+  }
 }
