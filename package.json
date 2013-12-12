@@ -11,6 +11,7 @@
 	"devDependencies": {
 		"mocha": ">= 1.15.1",
 		"sinon": "*",
-		"istanbul": ">= 0.1.46"
+		"istanbul": ">= 0.1.46",
+		"coveralls": "*"
 	}
 }
