@@ -21,9 +21,7 @@ suite('container', function() {
 			container.add('db', db);
 			container.add('db', db);
 		}, function(error) {
-			if (error.name == 'InvalidItemException') {
-				return true;
-			}
+			return error.name == 'InvalidItemException';
 		});
 	});
 
@@ -35,5 +33,25 @@ suite('container', function() {
 		container.set('db', db2);
 
 		assert.deepEqual(db2, container.get('db'));
+	});
+
+	test('should throw InvalidItemException when receive a absent namespace', function() {
+		var db = {};
+
+		assert.throws(function() {
+			container.set('db', db);
+		}, function(error) {
+			return error.name == 'InvalidItemException';
+		});
+	});
+
+	test('should throw InvalidItemException when try get an item with absent namespace', function() {
+		var db = {};
+
+		assert.throws(function() {
+			container.get('teste');
+		}, function(error) {
+			return error.name == 'InvalidItemException';
+		});
 	});
 });

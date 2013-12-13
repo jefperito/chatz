@@ -96,5 +96,37 @@ suite('emitter', function() {
 
 			emitter.message(message);
 		});
+
+		test('should throw UserNotFoundException when user is not found on logout', function() {
+			var emitter = require('./../emitter');
+
+			var fakeUser = {
+				id: 1,
+				name: 'Jeferson Viana Perito'
+			};
+
+			var socketFake = {
+				_user: fakeUser
+			};
+
+			var socket = {
+				broadcast: {
+					emit: function(protocolName, message) {}
+				},
+				_user: {
+					id: 2,
+					name: 'Bob Marley'
+				}
+			};
+
+			emitter.newUser(socket);
+
+			assert.throws(function() {
+				emitter.userLogout(socketFake);
+				emmiter.userLogout({});
+			}, function(error) {
+				return error.name == 'UserNotFoundException';
+			});
+		});
 	});
 });

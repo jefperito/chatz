@@ -1,5 +1,12 @@
 
 var emitter = (function() {
+	'use strict';
+
+	function UserNotFoundException(message) {
+		this.name    = 'UserNotFoundException';
+		this.message = message;
+	}
+
 	var sockets = [];
 
 	function reset() {
@@ -20,7 +27,7 @@ var emitter = (function() {
 			}
 		}
 
-		throw new TypeError('User not found');
+		throw new UserNotFoundException('User not found');
 	}
 
 	function message(msg) {
