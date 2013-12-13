@@ -46,8 +46,6 @@ suite('container', function() {
 	});
 
 	test('should throw InvalidItemException when try get an item with absent namespace', function() {
-		var db = {};
-
 		assert.throws(function() {
 			container.get('teste');
 		}, function(error) {

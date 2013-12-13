@@ -1,5 +1,4 @@
 var assert = require('assert');
-var sinon  = require('sinon');
 
 suite('emitter', function() {
 	suite('user', function() {
@@ -39,7 +38,7 @@ suite('emitter', function() {
 
 			var socketFake = {
 				broadcast: {
-					emit: function(protocolName, newUser) {}
+					emit: function() {}
 				},
 				_user: fakeUser
 			};
@@ -70,7 +69,7 @@ suite('emitter', function() {
 
 			var fakeSocket1 = {
 				broadcast: {
-					emit: function(protocolName, message) {}
+					emit: function() {}
 				},
 				emit: function(protocolName, msg) {
 					assert.equal('receiveMsg', protocolName, 'Wrong protocol name.');
@@ -79,13 +78,11 @@ suite('emitter', function() {
 				_user: fakeUser1
 			};
 
-			var count = 0;
-
 			var fakeSocket2 = {
 				broadcast: {
-					emit: function(protocolName, msg) {}
+					emit: function() {}
 				},
-				emit: function(protocolName, msg) {
+				emit: function() {
 					assert(false, 'inverse emit');
 				},
 				_user: fakeUser2
@@ -111,7 +108,7 @@ suite('emitter', function() {
 
 			var socket = {
 				broadcast: {
-					emit: function(protocolName, message) {}
+					emit: function() {}
 				},
 				_user: {
 					id: 2,
