@@ -1,10 +1,10 @@
 var assert = require('assert');
 
 suite('validator', function() {
+	var validator = require('./../server/validator');
+
 	suite('user', function() {
 		test('should throws exception if user is empty object', function() {
-			var validator = require('./../validator');
-
 			assert.throws(
 				function() {
 					validator.user({});
@@ -16,8 +16,6 @@ suite('validator', function() {
 		});
 
 		test('should throws exception if user not has own property id', function() {
-			var validator = require('./../validator');
-
 			var user = {
 				name: 'Jeferson Viana Perito'
 			};
@@ -33,8 +31,6 @@ suite('validator', function() {
 		});
 
 		test('should throws exception if user not has own property name', function() {
-			var validator = require('./../validator');
-
 			var user = {
 				id: 1
 			};
@@ -50,8 +46,6 @@ suite('validator', function() {
 		});
 
 		test('should validate if user has own property name and id', function() {
-			var validator = require('./../validator');
-
 			var user = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -68,8 +62,6 @@ suite('validator', function() {
 
 	suite('message', function() {
 		test('should throws exception if message has not own property target_id', function() {
-			var validator = require('./../validator');
-
 			var message = {
 				sender_id: 2,
 				body: 'Hello World!'
@@ -86,8 +78,6 @@ suite('validator', function() {
 		});
 
 		test('should throws exception if message has not own property sender_id', function() {
-			var validator = require('./../validator');
-
 			var message = {
 				target_id: 1,
 				body: 'Hello World'
@@ -104,8 +94,6 @@ suite('validator', function() {
 		});
 
 		test('should throws exception if message has not own property body', function() {
-			var validator = require('./../validator');
-
 			var message = {
 				target_id: 1,
 				sender_id: 2
@@ -122,8 +110,6 @@ suite('validator', function() {
 		});
 
 		test('should validate if message has all properties', function() {
-			var validator = require('./../validator');
-
 			var message = {
 				target_id: 1,
 				sender_id: 2,

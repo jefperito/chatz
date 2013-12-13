@@ -1,5 +1,7 @@
 
 var logger = (function() {
+	'use strict';
+
 	var _facadeLogger;
 
 	function message(msg) {

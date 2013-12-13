@@ -1,5 +1,7 @@
 
 var validator = (function() {
+	'use strict';
+
 	function user(user) {
 		if (!user.hasOwnProperty('id')) {
 			throw new Error('User has not property id');

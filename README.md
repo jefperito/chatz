@@ -4,8 +4,8 @@ Chat em desenvolvimento...
 [![Coverage Status](https://coveralls.io/repos/jefperito/chatz/badge.png)](https://coveralls.io/r/jefperito/chatz)
 
 Dependencias: 
-	- Arquitetura: node.js + socket.io
-	- Qualidade de software: mocha + sinon + istanbul + covehalls + jshint
+ - Arquitetura: node.js + socket.io
+ - Qualidade de software: mocha + sinon + istanbul + covehalls + jshint
 
 
 Rodar o code coverage com mocha e istanbul: 

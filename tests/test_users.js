@@ -1,21 +1,18 @@
 var assert = require('assert');
 
 suite('users', function() {
+	var users = require('./../server/users');
+
 	setup(function() {
-		var users = require('./../users');
 		users.setList([]);
 	});
 
 	suite('list', function() {
 		test('should to have empty list', function() {
-			var users = require('./../users');
-
 			assert.deepEqual([], users.getList());
 		});
 
 		test('should permits add a user to the list', function() {
-			var users = require('./../users');
-
 			var user = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -27,8 +24,6 @@ suite('users', function() {
 		});
 
 		test('should permits remove a user from the list', function() {
-			var users = require('./../users');
-
 			var user = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -41,8 +36,6 @@ suite('users', function() {
 		});
 
 		test('should throws exception if user not found to remove', function() {
-			var users = require('./../users');
-
 			var user1 = {
 				id: 1,
 				name: 'Jeferson Viana Perito'

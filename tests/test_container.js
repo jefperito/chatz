@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 suite('container', function() {
-	var container = require('./../container');
+	var container = require('./../server/container');
 
 	setup(function() {
 		container.reset();

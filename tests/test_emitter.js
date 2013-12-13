@@ -1,14 +1,14 @@
 var assert = require('assert');
 
 suite('emitter', function() {
+	var emitter = require('./../server/emitter');
+
 	suite('user', function() {
 		setup(function() {
-			var emitter = require('./../emitter');
 			emitter.reset();
 		});
 
 		test('should permits to send broadcast to others users when an user is added', function() {
-			var emitter    = require('./../emitter');
 			var fakeUser   = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -30,7 +30,6 @@ suite('emitter', function() {
 		});
 
 		test('should permits remove an user', function() {
-			var emitter = require('./../emitter');
 			var fakeUser   = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -50,7 +49,6 @@ suite('emitter', function() {
 		});
 
 		test('should permits send a message', function() {
-			var emitter = require('./../emitter');
 			var message = {
 				target_id: 1,
 				sender_id: 2,
@@ -95,8 +93,6 @@ suite('emitter', function() {
 		});
 
 		test('should throw UserNotFoundException when user is not found on logout', function() {
-			var emitter = require('./../emitter');
-
 			var fakeUser = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
