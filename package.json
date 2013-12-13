@@ -12,9 +12,8 @@
     "mocha": ">= 1.15.1",
     "sinon": "*",
     "istanbul": ">= 0.1.46",
-    "coveralls": "*",
-    "jshint": "*",
     "coveralls": "~2.6.0",
+    "jshint": "*",
     "mocha-lcov-reporter": "0.0.1"
   },
   "jshintConfig": {
