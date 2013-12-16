@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 suite('users', function() {
-	var users = require('./../server/users');
+	var users = require('./../server/repositories/users');
 
 	setup(function() {
 		users.setList([]);

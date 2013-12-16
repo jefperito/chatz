@@ -1,6 +1,6 @@
 
 var logger    = require('./logger_handler');
-var users     = require('./users');
+var users     = require('./repositories/users');
 var validator = require('./validator');
 
 var configuration = {

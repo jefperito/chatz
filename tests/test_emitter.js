@@ -1,7 +1,7 @@
 var assert = require('assert');
 
 suite('emitter', function() {
-	var emitter = require('./../server/emitter');
+	var emitter = require('./../server/communication/emitter');
 
 	suite('user', function() {
 		setup(function() {
