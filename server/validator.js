@@ -2,27 +2,32 @@
 var validator = (function() {
 	'use strict';
 
-	function user(user) {
-		if (!user.hasOwnProperty('id')) {
-			throw new Error('User has not property id');
+	function NoPropertyException(message) {
+		this.name    = 'NoPropertyException';
+		this.message = message;
+	}
+
+	function user(_user) {
+		if (!_user.hasOwnProperty('id')) {
+			throw new NoPropertyException('User has not property id');
 		}
 
-		if (!user.hasOwnProperty('name')) {
-			throw new Error('User has not property name');
+		if (!_user.hasOwnProperty('name')) {
+			throw new NoPropertyException('User has not property name');
 		}
 	}
 
-	function message(message) {
-		if (!message.hasOwnProperty('target_id')) {
-			throw new Error('Message has not property target_id');
+	function message(_message) {
+		if (!_message.hasOwnProperty('target_id')) {
+			throw new NoPropertyException('Message has not property target_id');
 		}
 
-		if (!message.hasOwnProperty('sender_id')) {
-			throw new Error('Message has not property sender_id');
+		if (!_message.hasOwnProperty('sender_id')) {
+			throw new NoPropertyException('Message has not property sender_id');
 		}
 
-		if (!message.hasOwnProperty('body')) {
-			throw new Error('Message has not property body');
+		if (!_message.hasOwnProperty('body')) {
+			throw new NoPropertyException('Message has not property body');
 		}
 	}
 

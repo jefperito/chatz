@@ -10,7 +10,7 @@ suite('validator', function() {
 					validator.user({});
 				},
 				function(error) {
-					return error instanceof Error && /User has not property id/.test(error);
+					return error.name == 'NoPropertyException';
 				}
 			);
 		});
@@ -25,7 +25,7 @@ suite('validator', function() {
 					validator.user(user);
 				},
 				function(error) {
-					return error instanceof Error && /User has not property id/.test(error);
+					return error.name == 'NoPropertyException';
 				}
 			);
 		});
@@ -40,7 +40,7 @@ suite('validator', function() {
 					validator.user(user);
 				},
 				function(error) {
-					return error instanceof Error && /User has not property name/.test(error);
+					return error.name == 'NoPropertyException';
 				}
 			);
 		});
@@ -72,7 +72,7 @@ suite('validator', function() {
 					validator.message(message);
 				},
 				function(error) {
-					return error instanceof Error && /Message has not property target_id/.test(error);
+					return error.name == 'NoPropertyException';
 				}
 			);
 		});
@@ -88,7 +88,7 @@ suite('validator', function() {
 					validator.message(message);
 				},
 				function (error) {
-					return error instanceof Error && /Message has not property sender_id/.test(error);
+					return error.name == 'NoPropertyException';
 				}
 			);
 		});
@@ -104,7 +104,7 @@ suite('validator', function() {
 					validator.message(message);
 				},
 				function(error) {
-					return error instanceof Error && /Message has not property body/.test(error);
+					return error.name == 'NoPropertyException';
 				}
 			);
 		});
