@@ -4,6 +4,14 @@ suite('validator', function() {
 	var validator = require('./../server/validator');
 
 	suite('user', function() {
+		test('should throws TypeError if user is not an object', function() {
+			assert.throws(function() {
+				validator.user([]);
+			}, function(error) {
+				return error instanceof TypeError;
+			});
+		});
+
 		test('should throws exception if user is empty object', function() {
 			assert.throws(
 				function() {
@@ -61,6 +69,14 @@ suite('validator', function() {
 	});
 
 	suite('message', function() {
+		test('should throws TypeError if message is not an object', function() {
+			assert.throws(function() {
+				validator.message([]);
+			}, function(error) {
+				return error instanceof TypeError;
+			});
+		});
+
 		test('should throws exception if message has not own property target_id', function() {
 			var message = {
 				sender_id: 2,
