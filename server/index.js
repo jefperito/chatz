@@ -10,8 +10,9 @@ var configuration = {
 
 var io = require('socket.io').listen(8080, configuration);
 
-io.sockets.on('connection', function (socket) {
+// Protocol
 
+io.sockets.on('connection', function(socket) {
 	socket.on('login', function(user, callback) {
 		try {
 			users.add(user);

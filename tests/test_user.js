@@ -14,7 +14,7 @@ suite('user', function() {
 			assert.equal(1, user.getId());
 		});
 
-		test('should get attributes from User object', function() {
+		test('should get undefined attributes from empty User', function() {
 			var user = new User();
 
 			assert.equal(undefined, user.getId());
