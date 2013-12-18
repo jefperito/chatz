@@ -2,8 +2,6 @@
 var users = (function() {
 	'use strict';
 
-	var validator = require('./../validator');
-
 	var _usersList = [];
 
 	function getList() {
@@ -15,7 +13,6 @@ var users = (function() {
 	}
 
 	function add(user) {
-		validator.user(user);
 		_usersList.push(user);
 	}
 
@@ -23,7 +20,7 @@ var users = (function() {
 		for (var index in _usersList) {
 			var userInList = _usersList[index];
 
-			if (userInList.id == user.id) {
+			if (userInList.getId() == user.getId()) {
 				_usersList.splice(index, 1);
 
 				return ;

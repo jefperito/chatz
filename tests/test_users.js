@@ -2,6 +2,7 @@ var assert = require('assert');
 
 suite('users', function() {
 	var users = require('./../server/repositories/users');
+	var User  = require('./../server/models/user');
 
 	setup(function() {
 		users.setList([]);
@@ -13,10 +14,10 @@ suite('users', function() {
 		});
 
 		test('should permits add a user to the list', function() {
-			var user = {
+			var user = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			};
+			});
 
 			users.add(user);
 
@@ -24,10 +25,10 @@ suite('users', function() {
 		});
 
 		test('should permits remove a user from the list', function() {
-			var user = {
+			var user = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			};
+			});
 
 			users.add(user);
 			users.remove(user);
@@ -36,15 +37,15 @@ suite('users', function() {
 		});
 
 		test('should throws exception if user not found to remove', function() {
-			var user1 = {
+			var user1 = new User ({
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			};
+			});
 
-			var user2 = {
+			var user2 = new User({
 				id: 2,
 				name: 'Francieli Rozza'
-			};
+			});
 
 			users.add(user1);
 
