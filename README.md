@@ -3,6 +3,9 @@ Chat em desenvolvimento...
 [![Build Status](https://api.travis-ci.org/jefperito/chatz.png)](http://travis-ci.org/#!/jefperito/chatz)
 [![Coverage Status](https://coveralls.io/repos/jefperito/chatz/badge.png)](https://coveralls.io/r/jefperito/chatz)
 
+TODO:
+ - Resolver referencia cíclica entre socket e user.
+ 
 Dependencias: 
  - Arquitetura: node.js + socket.io
  - Qualidade de software: mocha + sinon + istanbul + covehalls + jshint

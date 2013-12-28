@@ -30,5 +30,22 @@ suite('user', function() {
 			assert.equal(2, user.getId());
 			assert.equal('Liu Kang', user.getName());
 		});
+
+		test('should set sockets on user object', function() {
+			var user = new User({
+				id: 1,
+				name: 'Jeferson Viana Perito'
+			});
+
+			var socketDummy = {
+				emit: function() {},
+				on: function() {}
+			};
+
+			user.addSocket(socketDummy);
+
+			assert.equal(1, user.getSockets().length);
+			assert.deepEqual([socketDummy], user.getSockets());
+		});
 	});
 });

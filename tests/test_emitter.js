@@ -2,17 +2,14 @@ var assert = require('assert');
 
 suite('emitter', function() {
 	var emitter = require('./../server/communication/emitter');
+	var User = require('./../server/models/user');
 
 	suite('user', function() {
-		setup(function() {
-			emitter.reset();
-		});
-
 		test('should permits to send broadcast to others users when an user is added', function() {
-			var fakeUser   = {
+			var fakeUser = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			};
+			});
 
 			var socketFake = {
 				broadcast: {
@@ -25,27 +22,32 @@ suite('emitter', function() {
 			};
 
 			emitter.newUser(socketFake);
-
-			assert.equal(1, emitter.getSockets().length);
 		});
 
 		test('should permits remove an user', function() {
-			var fakeUser   = {
+			var fakeUser = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
+			});
+
+			var socketDummy = {
+				broadcast: {
+					emit: function() {}
+				}
 			};
 
 			var socketFake = {
 				broadcast: {
-					emit: function() {}
+					emit: function(protocolName, user) {
+						assert.equal('removeUser', protocolName);
+						assert.deepEqual(fakeUser, user);
+					}
 				},
 				_user: fakeUser
 			};
 
-			emitter.newUser(socketFake);
-			emitter.userLogout(socketFake);
-
-			assert.equal(0, emitter.getSockets().length);
+			emitter.newUser(socketDummy);
+			emitter.logoutUser(socketFake);
 		});
 
 		test('should permits send a message', function() {
@@ -55,17 +57,12 @@ suite('emitter', function() {
 				body: 'Ola mundo'
 			};
 
-			var fakeUser1 = {
+			var fakeUser = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			};
+			});
 
-			var fakeUser2 = {
-				id: 2,
-				name: 'Francieli Rozza'
-			};
-
-			var fakeSocket1 = {
+			var fakeSocket = {
 				broadcast: {
 					emit: function() {}
 				},
@@ -73,53 +70,12 @@ suite('emitter', function() {
 					assert.equal('receiveMsg', protocolName, 'Wrong protocol name.');
 					assert.deepEqual(message, msg, 'Wrong message.');
 				},
-				_user: fakeUser1
-			};
-
-			var fakeSocket2 = {
-				broadcast: {
-					emit: function() {}
-				},
-				emit: function() {
-					assert(false, 'inverse emit');
-				},
-				_user: fakeUser2
-			};
-
-			emitter.newUser(fakeSocket1);
-			emitter.newUser(fakeSocket2);
-
-			emitter.message(message);
-		});
-
-		test('should throw UserNotFoundException when user is not found on logout', function() {
-			var fakeUser = {
-				id: 1,
-				name: 'Jeferson Viana Perito'
-			};
-
-			var socketFake = {
 				_user: fakeUser
 			};
 
-			var socket = {
-				broadcast: {
-					emit: function() {}
-				},
-				_user: {
-					id: 2,
-					name: 'Bob Marley'
-				}
-			};
+			fakeUser.addSocket(fakeSocket);
 
-			emitter.newUser(socket);
-
-			assert.throws(function() {
-				emitter.userLogout(socketFake);
-				emmiter.userLogout({});
-			}, function(error) {
-				return error.name == 'UserNotFoundException';
-			});
+			emitter.message(message, fakeUser);
 		});
 	});
 });

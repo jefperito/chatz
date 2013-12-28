@@ -1,4 +1,5 @@
 var users = require('./repositories/users');
+var emitter = require('./communication/emitter');
 
 var configuration = {
 	'log level': 0,
@@ -17,7 +18,7 @@ io.sockets.on('connection', function(socket) {
 
 			users.add(user);
 			socket._user = user;
-			//@TODO Notifica outros usuários da entrada deste usuário
+			emitter.newUser(socket);
 		} catch(error) {
 			callback(error);
 		}
@@ -26,16 +27,15 @@ io.sockets.on('connection', function(socket) {
     socket.on('send_message', function(messageDTO, callback) {
 		try {
 			var Message = require('./../server/models/message');
-			var message = new Message(message);
-
-			//@TODO Enviar a mensagem pro destinatário
+			var message = new Message(messageDTO);
 		} catch(error) {
 			callback(error);
 		}
     });
 
 	socket.on('disconnect', function () {
-		io.sockets.emit('user disconnected');
+		emitter.logoutUser(socket);
+		//io.sockets.emit('user disconnected');
 	});
 });
 

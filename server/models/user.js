@@ -6,6 +6,8 @@ function User(userDTO) {
 		this.name = userDTO.name;
 		this.id   = userDTO.id;
 	}
+
+	this.sockets = [];
 }
 
 User.prototype.setName = function(name) {
@@ -21,6 +23,14 @@ User.prototype.getName = function() {
 		return this.name;
 	}
 };
+
+User.prototype.addSocket = function(socket) {
+	this.sockets.push(socket);
+};
+
+User.prototype.getSockets = function() {
+	return this.sockets;
+}
 
 User.prototype.getId = function() {
 	if (this.hasOwnProperty('id')) {
