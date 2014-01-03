@@ -3,7 +3,8 @@ var emitter = require('./communication/emitter');
 
 var configuration = {
 	'log level': 0,
-	'browser client minification': true
+	'browser client minification': true,
+	origins: '*:*'
 };
 
 var io = require('socket.io').listen(8080, configuration);
@@ -12,7 +13,6 @@ var io = require('socket.io').listen(8080, configuration);
 
 io.sockets.on('connection', function(socket) {
 	socket.on('login', function(userDTO, callback) {
-		console.log('aqui no login');
 		try {
 			var User = require('./../server/models/user');
 			var user = new User(userDTO);
