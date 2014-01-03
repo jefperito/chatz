@@ -6,16 +6,18 @@ suite('emitter', function() {
 
 	suite('user', function() {
 		test('should permits to send broadcast to others users when an user is added', function() {
-			var fakeUser = new User({
+			var dataUser = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			});
+			};
+
+			var fakeUser = new User(dataUser);
 
 			var socketFake = {
 				broadcast: {
 					emit: function(protocolName, newUser) {
 						assert.equal('newUser', protocolName);
-						assert.deepEqual(fakeUser, newUser);
+						assert.deepEqual(dataUser, newUser);
 					}
 				},
 				_user: fakeUser
@@ -25,22 +27,25 @@ suite('emitter', function() {
 		});
 
 		test('should permits remove an user', function() {
-			var fakeUser = new User({
+			var dataUser = {
 				id: 1,
 				name: 'Jeferson Viana Perito'
-			});
+			};
+
+			var fakeUser = new User(dataUser);
 
 			var socketDummy = {
 				broadcast: {
 					emit: function() {}
-				}
+				},
+				_user: fakeUser
 			};
 
 			var socketFake = {
 				broadcast: {
 					emit: function(protocolName, user) {
 						assert.equal('removeUser', protocolName);
-						assert.deepEqual(fakeUser, user);
+						assert.deepEqual(dataUser, user);
 					}
 				},
 				_user: fakeUser

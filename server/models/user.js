@@ -38,4 +38,11 @@ User.prototype.getId = function() {
 	}
 };
 
+User.prototype.toDTO = function() {
+	return {
+		id: this.id,
+		name: this.name
+	};
+};
+
 module.exports = User;

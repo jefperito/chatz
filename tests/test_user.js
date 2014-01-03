@@ -47,5 +47,16 @@ suite('user', function() {
 			assert.equal(1, user.getSockets().length);
 			assert.deepEqual([socketDummy], user.getSockets());
 		});
+
+		test('should get the DTO from an user object', function() {
+			var userData = {
+				id: 1,
+				name: 'Jeferson Viana Perito'
+			};
+
+			var user = new User(userData);
+
+			assert.deepEqual(userData, user.toDTO());
+		});
 	});
 });

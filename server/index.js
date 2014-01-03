@@ -12,6 +12,7 @@ var io = require('socket.io').listen(8080, configuration);
 
 io.sockets.on('connection', function(socket) {
 	socket.on('login', function(userDTO, callback) {
+		console.log('aqui no login');
 		try {
 			var User = require('./../server/models/user');
 			var user = new User(userDTO);
@@ -19,6 +20,8 @@ io.sockets.on('connection', function(socket) {
 			users.add(user);
 			socket._user = user;
 			emitter.newUser(socket);
+
+			callback();
 		} catch(error) {
 			callback(error);
 		}
