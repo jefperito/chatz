@@ -38,7 +38,6 @@ io.sockets.on('connection', function(socket) {
 
 	socket.on('disconnect', function () {
 		emitter.logoutUser(socket);
-		//io.sockets.emit('user disconnected');
 	});
 });
 
