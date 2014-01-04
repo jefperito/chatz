@@ -17,4 +17,5 @@ Dúvidas/requisitos para serem resolvidos:
  - Interface modular e com boa arquitetura, gerenciar objetos > gerenciar DOMs (knockout.js pode dar uma mão)
 
 Rodar o code coverage com mocha e istanbul: 
-istanbul cover _mocha -- -R spec -u tdd ./tests/
+ - UNIX: istanbul cover _mocha -- -R spec -u tdd ./tests/
+ - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./tests/
