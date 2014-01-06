@@ -12,28 +12,35 @@ var io = require('socket.io').listen(8080, configuration);
 // Protocol
 
 io.sockets.on('connection', function(socket) {
-	socket.on('login', function(userDTO, callback) {
+	socket.on('login', function(name, callback) {
 		try {
 			var User = require('./../server/models/user');
-			var user = new User(userDTO);
+			var user = new User();
+			user.setName(name);
 
 			users.add(user);
 			socket._user = user;
 			emitter.newUser(socket);
 
-			callback();
+			callback(null, user.toDTO());
 		} catch(error) {
 			callback(error);
 		}
     });
 
-    socket.on('send_message', function(messageDTO, callback) {
+    socket.on('sendMessage', function(messageDTO, callback) {
 		try {
 			var Message = require('./../server/models/message');
+			console.log('sendMessage');
+			console.log(messageDTO);
 			var message = new Message(messageDTO);
 		} catch(error) {
 			callback(error);
 		}
+    });
+
+    socket.on('getUsers', function(callback) {
+		callback(null, users.toDTO());
     });
 
 	socket.on('disconnect', function () {

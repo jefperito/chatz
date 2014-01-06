@@ -5,26 +5,26 @@ suite('users', function() {
 	var User  = require('./../server/models/user');
 
 	setup(function() {
-		users.setList([]);
+		users.setMap({});
 	});
 
 	suite('list', function() {
 		test('should to have empty list', function() {
-			assert.deepEqual([], users.getList());
+			assert.deepEqual({}, users.getMap());
 		});
 
 		test('should permits add a user to the list', function() {
-			var user = new User({
-				id: 1,
-				name: 'Jeferson Viana Perito'
-			});
+			var user = new User();
+
+			user.setName('Jeferson Viana Perito');
 
 			users.add(user);
 
-			assert.equal(1, users.getList().length);
+			assert.equal(1, Object.keys(users.getMap()).length);
+			assert.equal(1, user.getId());
 		});
 
-		test('should permits remove a user from the list', function() {
+		test('should permits remove an user from the list', function() {
 			var user = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -33,30 +33,30 @@ suite('users', function() {
 			users.add(user);
 			users.remove(user);
 
-			assert.equal(0, users.getList().length);
+			assert.equal(0, Object.keys(users.getMap()).length);
 		});
 
-		test('should throws exception if user not found to remove', function() {
-			var user1 = new User ({
-				id: 1,
-				name: 'Jeferson Viana Perito'
-			});
+		test('should permits update an user from the list', function() {
+			var user = new User();
 
-			var user2 = new User({
-				id: 2,
-				name: 'Francieli Rozza'
-			});
+			user.setName('Martin Lutherking');
+			users.add(user);
+
+			user.setName('Martin Fowler');
+			assert.deepEqual(user, users.get(1));
+		});
+
+		test('shoul permits convert map to DTOusers', function() {
+			var user1Data = {id: 1, name: 'Jeferson Viana Perito'};
+			var user2Data = {id: 2, name: 'Mahatma Gandhi'};
+
+			var user1 = new User(user1Data);
+			var user2 = new User(user2Data);
 
 			users.add(user1);
+			users.add(user2);
 
-			assert.throws(
-				function() {
-					users.remove(user2);
-				},
-				function(error) {
-					return error instanceof TypeError && /User not found/.test(error);
-				}
-			);
+			assert.deepEqual([user1Data, user2Data], users.toDTO());
 		});
 	});
 });

@@ -58,5 +58,11 @@ suite('user', function() {
 
 			assert.deepEqual(userData, user.toDTO());
 		});
+
+		test('the object should be new when id is undefined', function() {
+			var user = new User();
+
+			assert.equal(true, user.isNew());
+		});
 	});
 });

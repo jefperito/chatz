@@ -1,40 +1,51 @@
-
 var users = (function() {
 	'use strict';
 
-	var _usersList = [];
+	var usersMap = {};
 
-	function getList() {
-		return _usersList;
+	function getMap() {
+		return usersMap;
 	}
 
-	function setList(usersList) {
-		_usersList = usersList;
+	function setMap(map) {
+		usersMap = map;
+	}
+
+	function get(id) {
+		return usersMap[id];
 	}
 
 	function add(user) {
-		_usersList.push(user);
+		if (user.isNew()) {
+			var id = Object.keys(usersMap).length + 1;
+			user.setId(id);
+		}
+
+		usersMap[user.getId()] = user;
 	}
 
 	function remove(user) {
-		for (var index in _usersList) {
-			var userInList = _usersList[index];
+		delete usersMap[user.getId()];
+	}
 
-			if (userInList.getId() == user.getId()) {
-				_usersList.splice(index, 1);
+	function toDTO() {
+		var usersDTOList = [];
+		var keys = Object.keys(usersMap);
 
-				return ;
-			}
-		}
+		keys.forEach(function(key) {
+			usersDTOList.push(usersMap[key].toDTO());
+		});
 
-		throw new TypeError('User not found');
+		return usersDTOList;
 	}
 
 	return {
-		getList: getList,
-		setList: setList,
+		getMap: getMap,
+		setMap: setMap,
 		add: add,
-		remove: remove
+		get: get,
+		remove: remove,
+		toDTO: toDTO
 	};
 })();
 

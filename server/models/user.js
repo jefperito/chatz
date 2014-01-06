@@ -14,6 +14,10 @@ User.prototype.setName = function(name) {
 	this.name = name;
 };
 
+User.prototype.isNew = function() {
+	return this.id === undefined;
+};
+
 User.prototype.setId = function(id) {
 	this.id = id;
 };
@@ -30,7 +34,7 @@ User.prototype.addSocket = function(socket) {
 
 User.prototype.getSockets = function() {
 	return this.sockets;
-}
+};
 
 User.prototype.getId = function() {
 	if (this.hasOwnProperty('id')) {
