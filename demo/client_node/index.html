@@ -22,6 +22,9 @@
 
 				me = user;
 
+				$('#profile').append('<strong>ID: ' + me.id + '<br/>');
+				$('#profile').append('<strong>Nome: ' + me.name + '<br/>');
+
 				socket.emit('getUsers', function(error, users) {
 					if (error) {
 						alert('Houve um erro obtendo os usuários');
@@ -29,12 +32,19 @@
 					}
 
 					usersOnChat = users;
+
+					var ids = Object.keys(users);
+
+					ids.forEach(function(id) {
+						$('#users_list').append(usersOnChat[id].name + '<br/>')
+					});
 				});
 			});
 
 			socket.on('newUser', function(user) {
 				usersOnChat[user.id] = user;
 				target_id = user.id;
+				$('#users_list').append(user.name + '<br/>')
 			});
 
 			socket.on('receiveMsg', function(message) {
@@ -66,8 +76,12 @@
 	</script>
 </head>
 <body>
-	<div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8"></div><br/>
-	<input id="msg" name="msg" type="text" />
-	<button id="send_button" type="button">Send</button>
+	<div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8; float: left"></div>
+	<div id="users_list" style="height: 300px; width: 150px; float: left; background-color: #666; color: #FFF"></div><br/>
+	<div style="top: 310px; position: absolute">
+		<input id="msg" name="msg" type="text" size="50" />
+		<button id="send_button" type="button">Send</button>
+	</div>
+	<div id="profile" style="height: 150px; width: 250px; float: left; background-color: #ADD190; position: absolute; top: 360px" />
 </body>
 </html>
