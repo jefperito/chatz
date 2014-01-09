@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+	<title>CLIENTE DO CHAT 0.1</title>
+	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+	<script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var socket = io.connect('http://localhost:8080');
+
+			var id = prompt('Digite o id', '1');
+			var name = prompt('Digite o seu nome', 'Jeferson');
+			var target_id;
+			var me;
+			var usersOnChat;
+
+			socket.emit('login', {id: id, name: name}, function(error, user) {
+				if (error) {
+					alert('Houve um erro registrando o usuário');
+					return ;
+				}
+
+				me = user;
+
+				socket.emit('getUsers', function(error, users) {
+					if (error) {
+						alert('Houve um erro obtendo os usuários');
+						return ;
+					}
+
+					usersOnChat = users;
+				});
+			});
+
+			socket.on('newUser', function(user) {
+				usersOnChat[user.id] = user;
+				target_id = user.id;
+			});
+
+			socket.on('receiveMsg', function(message) {
+				var sender = usersOnChat[message.sender_id];
+				target_id = message.sender_id;
+				$('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
+			});
+
+			$('#send_button').click(function() {
+				socket.emit('sendMessage', {
+					target_id: target_id,
+					sender_id: me.id,
+					body: document.getElementById('msg').value
+				}, function(error) {
+					if (error) {
+						alert('Houve um erro no envio de mensagem');
+
+						return;
+					}
+
+					$('#msg_area').append('<b>Eu:</b> ' + document.getElementById('msg').value + '<br/>');
+					$('#msg').val('');
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+	<div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8"></div><br/>
+	<input id="msg" name="msg" type="text" />
+	<button id="send_button" type="button">Send</button>
+</body>
+</html>
