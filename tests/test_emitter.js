@@ -62,12 +62,17 @@ suite('emitter', function() {
 				body: 'Ola mundo'
 			};
 
-			var fakeUser = new User({
+			var fakeUser1 = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
 			});
 
-			var fakeSocket = {
+			var fakeUser2 = new User({
+				id: 2,
+				name: 'Jean Claude Van Damme'
+			});
+
+			var fakeSocket1 = {
 				broadcast: {
 					emit: function() {}
 				},
@@ -75,12 +80,23 @@ suite('emitter', function() {
 					assert.equal('receiveMsg', protocolName, 'Wrong protocol name.');
 					assert.deepEqual(message, msg, 'Wrong message.');
 				},
-				_user: fakeUser
+				_user: fakeUser1
 			};
 
-			fakeUser.addSocket(fakeSocket);
+			var fakeSocket2 = {
+				broadcast: {
+					emit: function() {}
+				},
+				emit: function(protocolName, msg) {
+					assert.equal('receiveMsg', protocolName, 'Wrong protocol name.');
+					assert.deepEqual(message, msg, 'Wrong message.');
+				},
+				_user: fakeUser2
+			};
 
-			emitter.message(message, fakeUser);
+			fakeUser1.addSocket(fakeSocket1);
+
+			emitter.message(message, fakeUser1, fakeUser2);
 		});
 	});
 });

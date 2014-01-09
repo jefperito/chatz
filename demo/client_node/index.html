@@ -39,7 +39,11 @@
 
 			socket.on('receiveMsg', function(message) {
 				var sender = usersOnChat[message.sender_id];
-				target_id = message.sender_id;
+
+				if (message.sender_id != me.id) {
+					target_id = message.sender_id;
+				}
+
 				$('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
 			});
 
@@ -55,7 +59,6 @@
 						return;
 					}
 
-					$('#msg_area').append('<b>Eu:</b> ' + document.getElementById('msg').value + '<br/>');
 					$('#msg').val('');
 				});
 			});
