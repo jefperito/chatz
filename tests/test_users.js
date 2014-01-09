@@ -58,7 +58,7 @@ suite('users', function() {
 			users.add(user1);
 			users.add(user2);
 
-			assert.deepEqual([user1Data, user2Data], users.toDTO());
+			assert.deepEqual({1: user1Data, 2: user2Data}, users.toDTO());
 		});
 	});
 });

@@ -16,9 +16,15 @@ io.sockets.on('connection', function(socket) {
 		try {
 			var User = require('./../server/models/user');
 			var user = new User(userDTO);
+
+			if (!users.get(user.getId())) {
+				users.add(user);
+			} else {
+				user = users.get(user.getId());
+			}
+
 			user.addSocket(socket);
 
-			users.add(user);
 			socket._user = user;
 			emitter.newUser(socket);
 
@@ -45,7 +51,7 @@ io.sockets.on('connection', function(socket) {
     });
 
 	socket.on('disconnect', function () {
-		emitter.logoutUser(socket);
+
 	});
 });
 

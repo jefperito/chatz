@@ -24,14 +24,14 @@ var users = (function() {
 	}
 
 	function toDTO() {
-		var usersDTOList = [];
+		var usersDTO = {};
 		var keys = Object.keys(usersMap);
 
 		keys.forEach(function(key) {
-			usersDTOList.push(usersMap[key].toDTO());
+			usersDTO[key] = usersMap[key].toDTO();
 		});
 
-		return usersDTOList;
+		return usersDTO;
 	}
 
 	return {
