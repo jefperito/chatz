@@ -14,10 +14,6 @@ User.prototype.setName = function(name) {
 	this.name = name;
 };
 
-User.prototype.isNew = function() {
-	return this.id === undefined;
-};
-
 User.prototype.setId = function(id) {
 	this.id = id;
 };

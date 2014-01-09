@@ -16,6 +16,7 @@ suite('users', function() {
 		test('should permits add a user to the list', function() {
 			var user = new User();
 
+			user.setId(1);
 			user.setName('Jeferson Viana Perito');
 
 			users.add(user);
@@ -39,6 +40,7 @@ suite('users', function() {
 		test('should permits update an user from the list', function() {
 			var user = new User();
 
+			user.setId(1);
 			user.setName('Martin Lutherking');
 			users.add(user);
 

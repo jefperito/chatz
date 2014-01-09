@@ -12,11 +12,10 @@ var io = require('socket.io').listen(8080, configuration);
 // Protocol
 
 io.sockets.on('connection', function(socket) {
-	socket.on('login', function(name, callback) {
+	socket.on('login', function(userDTO, callback) {
 		try {
 			var User = require('./../server/models/user');
-			var user = new User();
-			user.setName(name);
+			var user = new User(userDTO);
 			user.addSocket(socket);
 
 			users.add(user);

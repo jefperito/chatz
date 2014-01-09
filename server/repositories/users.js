@@ -16,11 +16,6 @@ var users = (function() {
 	}
 
 	function add(user) {
-		if (user.isNew()) {
-			var id = Object.keys(usersMap).length + 1;
-			user.setId(id);
-		}
-
 		usersMap[user.getId()] = user;
 	}
 
