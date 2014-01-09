@@ -17,6 +17,7 @@ io.sockets.on('connection', function(socket) {
 			var User = require('./../server/models/user');
 			var user = new User();
 			user.setName(name);
+			user.addSocket(socket);
 
 			users.add(user);
 			socket._user = user;
@@ -31,9 +32,10 @@ io.sockets.on('connection', function(socket) {
     socket.on('sendMessage', function(messageDTO, callback) {
 		try {
 			var Message = require('./../server/models/message');
-			console.log('sendMessage');
-			console.log(messageDTO);
 			var message = new Message(messageDTO);
+
+			emitter.message(message, users.get(message.getTargetId()));
+			callback();
 		} catch(error) {
 			callback(error);
 		}
