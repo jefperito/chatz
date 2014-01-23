@@ -16,7 +16,7 @@
 
 			socket.emit('login', {id: id, name: name}, function(error, user) {
 				if (error) {
-					alert('Houve um erro registrando o usuário');
+					alert('Houve um erro registrando o usuário ' + JSON.stringify(error));
 					return ;
 				}
 
@@ -35,8 +35,11 @@
 
 					var ids = Object.keys(users);
 
-					ids.forEach(function(id) {
-						$('#users_list').append(usersOnChat[id].name + '<br/>')
+					ids.forEach(function(_id) {
+						$('#users_list').append(usersOnChat[_id].name + '<br/>')
+						if (id != _id) {
+							target_id = _id;
+						}
 					});
 				});
 			});

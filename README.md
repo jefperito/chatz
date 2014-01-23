@@ -8,6 +8,8 @@ Para instalar:
 
 TODO:
  - Resolver referencia cíclica entre socket e user.
+ - Refatorar index.js
+ - Criar testes para index.js
  
 Dependencias: 
  - Arquitetura: node.js + socket.io
