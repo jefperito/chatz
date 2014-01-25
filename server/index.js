@@ -1,8 +1,8 @@
 var users = require('./repositories/users');
 var emitter = require('./communication/emitter');
-var connection = require('./persistence/connection');
+var db = require('./persistence/db');
 
-connection.init();
+db.init();
 
 var configuration = {
 	'log level': 0,

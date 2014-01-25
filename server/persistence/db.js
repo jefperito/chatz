@@ -1,4 +1,4 @@
-var connection = (function() {
+var db = (function() {
 	'use strict';
 
 	function init() {
@@ -10,4 +10,4 @@ var connection = (function() {
 	};
 })();
 
-module.exports = connection;
+module.exports = db;
