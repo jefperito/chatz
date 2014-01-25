@@ -33,7 +33,7 @@ io.sockets.on('connection', function(socket) {
 
 			callback(null, userPersisted.toDTO());
 		} catch(error) {
-			console.log(error);
+			console.error(error);
 			callback(error);
 		}
     });
@@ -46,7 +46,7 @@ io.sockets.on('connection', function(socket) {
 			emitter.message(message, socket._user, users.get(message.getTargetId()));
 			callback();
 		} catch(error) {
-			console.log(error);
+			console.error(error);
 			callback(error);
 		}
     });
