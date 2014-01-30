@@ -14,10 +14,6 @@ Chat em desenvolvimento...
  - Criar testes para index.js
  - Melhorar a demo
 
-## Dependencias
- - Arquitetura: node.js + socket.io
- - Qualidade de software: mocha + sinon + istanbul + covehalls + jshint
-
 ## Dúvidas/requisitos para serem resolvidos
  - Chat escalável e distribuido? redis como centralizador dos recursos possui o melhor custo benefício?
  - Estabilidade de software, como conseguir? Apenas testes automatizados sana esse tipo de problema?
