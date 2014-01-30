@@ -8,7 +8,7 @@ Chat em desenvolvimento...
 ## Para instalar:
  - npm install
 
-### TODO
+## TODO
  - Resolver referencia cíclica entre socket e user.
  - Refatorar index.js
  - Criar testes para index.js
