@@ -10,7 +10,8 @@ TODO:
  - Resolver referencia cíclica entre socket e user.
  - Refatorar index.js
  - Criar testes para index.js
- 
+ - Melhorar a demo
+
 Dependencias: 
  - Arquitetura: node.js + socket.io
  - Qualidade de software: mocha + sinon + istanbul + covehalls + jshint
