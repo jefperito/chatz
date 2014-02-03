@@ -18,7 +18,7 @@ Chat em desenvolvimento...
 
 ![alt tag](https://raw.github.com/jefperito/chatz/master/docs/Diagram.png)
 
-### Service Message
+### Message Service
  - Responsável pela comunicação realtime entre cliente e servidor
  - Protocolos websocket (preferencial) e http-polling
  - node.js e socket.io
