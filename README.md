@@ -18,6 +18,22 @@ Chat em desenvolvimento...
 
 ![alt tag](https://raw.github.com/jefperito/chatz/master/docs/Diagram.png)
 
+### Service Message
+ - Responsável pela comunicação realtime entre cliente e servidor
+ - Protocolos websocket (preferencial) e http-polling
+ - node.js e socket.io
+ - Transmite mensagens recebidas para o servidor de cache
+
+### Cache Service
+ - Responsável em realizar cache im memory das informações transitadas
+ - redis
+ - orientado à eventos
+
+### Logging Service
+ - Responsável por persistir as mensagens transitadas
+ - Ouvir as mudanças do cache service
+ - python, gevent, RethingDb
+
 ## Dúvidas/requisitos para serem resolvidos
  - Chat escalável e distribuido? redis como centralizador dos recursos possui o melhor custo benefício?
  - Estabilidade de software, como conseguir? Apenas testes automatizados sana esse tipo de problema?
