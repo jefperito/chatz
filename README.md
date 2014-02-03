@@ -27,7 +27,7 @@ Chat em desenvolvimento...
 ### Cache Service
  - Responsável em realizar cache im memory das informações transitadas
  - redis
- - orientado à eventos
+ - orientado à eventos (pub/sub)
 
 ### Logging Service
  - Responsável por persistir as mensagens transitadas
