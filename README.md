@@ -22,7 +22,7 @@ Chat em desenvolvimento...
  - Responsável pela comunicação realtime entre cliente e servidor
  - Protocolos websocket (preferencial) e http-polling
  - node.js e socket.io
- - Transmite mensagens recebidas para o servidor de cache
+ - Transmite mensagens recebidas para o cache service
 
 ### Cache Service
  - Responsável em realizar cache im memory das informações transitadas
