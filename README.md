@@ -32,7 +32,7 @@ Chat em desenvolvimento...
 ### Logging Service
  - Responsável por persistir as mensagens transitadas
  - Ouvir as mudanças do cache service
- - python, gevent, RethingDb
+ - python, gevent, RethinkDb
 
 ## Dúvidas/requisitos para serem resolvidos
  - Chat escalável e distribuido? redis como centralizador dos recursos possui o melhor custo benefício?
