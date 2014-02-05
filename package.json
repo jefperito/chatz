@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "socket.io": ">= 0.9",
-    "mongoose": "latest"
+    "rethinkdb": "latest"
   },
   "devDependencies": {
     "mocha": ">= 1.15.1",
