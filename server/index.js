@@ -1,6 +1,8 @@
 var users = require('./repositories/users');
 var emitter = require('./communication/emitter');
 var db = require('./persistence/db');
+var redis = require('redis');
+var RedisStore = require('socket.io/lib/stores/redis');
 
 db.init();
 
@@ -11,10 +13,16 @@ var configuration = {
 };
 
 var io = require('socket.io').listen(8080, configuration);
+io.set('store', new RedisStore({
+	pub: redis.createClient(),
+	sub: redis.createClient(),
+	client: redis.createClient()
+}));
 
 // Protocol
-
 io.sockets.on('connection', function(socket) {
+	var sub = redis.createClient();
+
 	socket.on('login', function(userDTO, callback) {
 		try {
 			var User = require('./../server/models/user');
