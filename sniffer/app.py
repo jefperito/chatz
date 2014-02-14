@@ -1,10 +1,9 @@
 #!/usr/bin/env python
-import argparse
-import rethinkdb
+from listener import Listener
 
-parser = argparse.ArgumentParser()
-parser.add_argument('test', help='hello world', type=int)
 
-args = parser.parse_args()
+def main():
+    Listener().run()
 
-print args.test
+if __name__ == '__main__':
+    main()
