@@ -3,6 +3,7 @@ var emitter = require('./communication/emitter');
 var db = require('./persistence/db');
 var redis = require('redis');
 var RedisStore = require('socket.io/lib/stores/redis');
+var config = require('./config');
 
 db.init();
 
@@ -12,8 +13,9 @@ var configuration = {
 	origins: '*:*'
 };
 
-var io = require('socket.io').listen(8080, configuration);
+var io = require('socket.io').listen(config.PORT, configuration);
 io.set('store', new RedisStore({
+	redis: redis,
 	pub: redis.createClient(),
 	sub: redis.createClient(),
 	client: redis.createClient()
@@ -21,9 +23,9 @@ io.set('store', new RedisStore({
 
 // Protocol
 io.sockets.on('connection', function(socket) {
-	var sub = redis.createClient();
-
+	var pub = redis.createClient();
 	socket.on('login', function(userDTO, callback) {
+		pub.publish('login', JSON.stringify(userDTO));
 		try {
 			var User = require('./../server/models/user');
 			var user = new User(userDTO);
@@ -64,7 +66,7 @@ io.sockets.on('connection', function(socket) {
     });
 
 	socket.on('disconnect', function () {
-
+		pub.exit();
 	});
 });
 
