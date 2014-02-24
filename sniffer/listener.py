@@ -1,5 +1,6 @@
 import redis
 from logger import Logger
+from config import Config
 
 
 class Listener(object):
@@ -9,7 +10,7 @@ class Listener(object):
         self.__configureRedis()
 
     def __configureRedis(self):
-        self.rc = redis.Redis('localhost')
+        self.rc = redis.Redis(Config.REDIS_HOST)
         self.ps = self.rc.pubsub()
         self.ps.subscribe(['login'])
 

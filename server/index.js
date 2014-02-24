@@ -42,30 +42,30 @@ io.sockets.on('connection', function(socket) {
 			userPersisted.addSocket(socket);
 
 			callback(null, userPersisted.toDTO());
-		} catch(error) {
+		} catch (error) {
 			console.error(error);
 			callback(error);
 		}
-    });
+	});
 
-    socket.on('sendMessage', function(messageDTO, callback) {
+	socket.on('sendMessage', function(messageDTO, callback) {
 		try {
 			var Message = require('./../server/models/message');
 			var message = new Message(messageDTO);
 
 			emitter.message(message, socket._user, users.get(message.getTargetId()));
 			callback();
-		} catch(error) {
+		} catch (error) {
 			console.error(error);
 			callback(error);
 		}
-    });
+	});
 
-    socket.on('getUsers', function(callback) {
+	socket.on('getUsers', function(callback) {
 		callback(null, users.toDTO());
-    });
+	});
 
-	socket.on('disconnect', function () {
+	socket.on('disconnect', function() {
 
 	});
 });

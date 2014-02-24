@@ -1,17 +1,17 @@
 var db = (function() {
-	'use strict';
+    'use strict';
 
-	var connection;
+    var connection;
 
-	function init() {
-		establishesConnection();
-	}
+    function init() {
+        establishesConnection();
+    }
 
-	function establishesConnection() {}
+    function establishesConnection() {}
 
-	return {
-		init: init
-	};
+    return {
+        init: init
+    };
 })();
 
 module.exports = db;
