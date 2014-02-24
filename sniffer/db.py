@@ -1,4 +1,5 @@
 import rethinkdb as r
+from config import Config
 
 
 class DBException(Exception):
@@ -15,7 +16,11 @@ class DB(object):
             self.__createDB()
 
     def __connect(self):
-        r.connect(db=self.DATABASE).repl()
+        r.connect(
+            host=Config.RETHINKDB_HOST,
+            port=Config.RETHINKDB_PORT,
+            db=self.DATABASE
+        ).repl()
 
     def __existsDB(self):
         return self.DATABASE in r.db_list().run()
@@ -24,7 +29,7 @@ class DB(object):
         r.db_create(self.DATABASE).run()
         response = r.table_create(self.TABLE_USER).run()
 
-        if response.created != 1:
+        if response['created'] != 1:
             raise DBException('Nao foi possivel criar o banco de dados: '
                               + str(response))
 

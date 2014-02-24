@@ -10,7 +10,8 @@ class Listener(object):
         self.__configureRedis()
 
     def __configureRedis(self):
-        self.rc = redis.Redis(Config.REDIS_HOST)
+        self.rc = redis.Redis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
+
         self.ps = self.rc.pubsub()
         self.ps.subscribe(['login'])
 
