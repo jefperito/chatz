@@ -2,11 +2,11 @@
 <html lang="pt-BR">
 <head>
 	<title>CLIENTE DO CHAT 0.1</title>
-	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+	<script src="http://localhost:8081/socket.io/socket.io.js"></script>
 	<script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
-			var socket = io.connect('http://localhost:8080');
+			var socket = io.connect('http://localhost:8081');
 
 			var id = prompt('Digite o id', '1');
 			var name = prompt('Digite o seu nome', 'Jeferson');
