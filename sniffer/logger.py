@@ -1,4 +1,5 @@
 from db import DB
+import json
 
 
 class Logger(object):
@@ -7,5 +8,4 @@ class Logger(object):
         self.db = DB()
 
     def registerUser(self, user):
-        print 'User received'
-        print user
+        self.db.registerUser(json.loads(user))

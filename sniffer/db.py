@@ -36,5 +36,5 @@ class DB(object):
     def registerUser(self, user):
         response = r.table(self.TABLE_USER).insert(user).run()
 
-        if response.errors > 0:
+        if response['errors'] > 0:
             raise DBException('Houve um erro ao armazenar o usuario')
