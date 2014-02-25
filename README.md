@@ -13,6 +13,7 @@ Chat em desenvolvimento...
  - Refatorar index.js
  - Criar testes para index.js
  - Melhorar a demo
+ - Listener ser um greenlet
 
 ## Arquitetura
 
