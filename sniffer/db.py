@@ -8,7 +8,9 @@ class DBException(Exception):
 
 class DB(object):
     TABLE_USER = 'users'
+    TABLE_MESSAGES = 'messages'
     DATABASE = 'chatz'
+    TABLES = [TABLE_MESSAGES, TABLE_USER]
 
     def __init__(self):
         self.__connect()
@@ -26,15 +28,26 @@ class DB(object):
         return self.DATABASE in r.db_list().run()
 
     def __createDB(self):
-        r.db_create(self.DATABASE).run()
-        response = r.table_create(self.TABLE_USER).run()
+        response = r.db_create(self.DATABASE).run()
 
         if response['created'] != 1:
             raise DBException('Nao foi possivel criar o banco de dados: '
                               + str(response))
 
+        for table in self.TABLES:
+            response = r.table_create(table).run()
+
+            if response['created'] != 1:
+                raise DBException('Nao foi possivel criar a tabela {0}: {1}'.format(table, str(response)))
+
     def registerUser(self, user):
         response = r.table(self.TABLE_USER).insert(user).run()
+
+        if response['errors'] > 0:
+            raise DBException('Houve um erro ao armazenar o usuario')
+
+    def registerMessage(self, message):
+        response = r.table(self.TABLE_MESSAGES).insert(message).run()
 
         if response['errors'] > 0:
             raise DBException('Houve um erro ao armazenar o usuario')

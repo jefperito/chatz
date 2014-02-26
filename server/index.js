@@ -53,6 +53,7 @@ io.sockets.on('connection', function(socket) {
 			var Message = require('./../server/models/message');
 			var message = new Message(messageDTO);
 
+			pub.publish('message', JSON.stringify(messageDTO));
 			emitter.message(message, socket._user, users.get(message.getTargetId()));
 			callback();
 		} catch (error) {

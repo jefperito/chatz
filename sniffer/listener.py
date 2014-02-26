@@ -19,3 +19,6 @@ class Listener(object):
         for item in self.ps.listen():
             if item['type'] == 'message' and item['channel'] == 'login':
                 self.logger.registerUser(item['data'])
+
+            if item['type'] == 'message' and item['channel'] == 'message':
+                self.logger.registerMessage(item['data'])

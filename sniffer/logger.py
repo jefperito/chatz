@@ -9,3 +9,6 @@ class Logger(object):
 
     def registerUser(self, user):
         self.db.registerUser(json.loads(user))
+
+    def registerMessage(self, message):
+        self.db.registerMessage(json.loads(message))
