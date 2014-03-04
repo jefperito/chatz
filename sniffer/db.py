@@ -44,10 +44,10 @@ class DB(object):
         response = r.table(self.TABLE_USER).insert(user).run()
 
         if response['errors'] > 0:
-            raise DBException('Houve um erro ao armazenar o usuario')
+            raise DBException('Houve um erro ao armazenar o usuario {0}'.format(str(response)))
 
     def registerMessage(self, message):
         response = r.table(self.TABLE_MESSAGES).insert(message).run()
 
         if response['errors'] > 0:
-            raise DBException('Houve um erro ao armazenar o usuario')
+            raise DBException('Houve um erro ao armazenar o usuario {0}'.format(str(response)))
