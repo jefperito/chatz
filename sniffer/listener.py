@@ -13,12 +13,15 @@ class Listener(object):
         self.rc = redis.Redis(host=Config.REDIS_HOST, port=Config.REDIS_PORT)
 
         self.ps = self.rc.pubsub()
-        self.ps.subscribe(['login'])
+        self.ps.subscribe(['login', 'message'])
 
     def run(self):
         for item in self.ps.listen():
+            print 'Listener'
             if item['type'] == 'message' and item['channel'] == 'login':
+                print 'Listener login'
                 self.logger.registerUser(item['data'])
 
             if item['type'] == 'message' and item['channel'] == 'message':
+                print 'Listener message'
                 self.logger.registerMessage(item['data'])
