@@ -1,14 +1,14 @@
-
-var emitter = (function() {
+var emitter = (function () {
 	'use strict';
 
 	function emitMessageToSockets(sockets, msg) {
-		sockets.forEach(function(socket) {
+		sockets.forEach(function (socket) {
 			socket.emit('receiveMsg', msg);
 		});
 	}
 
 	function newUser(socket) {
+		console.log(socket._user.toDTO());
 		socket.broadcast.emit('newUser', socket._user.toDTO());
 	}
 

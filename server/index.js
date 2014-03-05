@@ -4,6 +4,7 @@ var db = require('./persistence/db');
 var redis = require('redis');
 var RedisStore = require('socket.io/lib/stores/redis');
 var config = require('./config');
+var controller = require('./controller');
 
 db.init();
 
@@ -22,57 +23,34 @@ io.set('store', new RedisStore({
 }));
 
 // Protocol
-io.sockets.on('connection', function(socket) {
+io.sockets.on('connection', function (socket) {
     var pub = redis.createClient();
-    socket.on('login', function(userDTO, callback) {
+    socket.on('login', function (userDTO, callback) {
         pub.publish('login', JSON.stringify(userDTO));
         try {
-            var User = require('./../server/models/user');
-            var user = new User(userDTO);
-            var userPersisted = users.get(user.getId());
-
-            if (userPersisted === undefined) {
-                userPersisted = user;
-                users.add(userPersisted);
-                socket._user = userPersisted;
-                emitter.newUser(socket);
-            }
-
-            socket._user = userPersisted;
-            userPersisted.addSocket(socket);
-
-            callback(null, userPersisted.toDTO());
+            controller.login(socket, userDTO, callback);
         } catch (error) {
             console.error(error);
             callback(error);
         }
     });
 
-    socket.on('sendMessage', function(messageDTO, callback) {
+    socket.on('sendMessage', function (messageDTO, callback) {
         try {
-            var Message = require('./../server/models/message');
-            var message = new Message(messageDTO);
             pub.publish('message', JSON.stringify(messageDTO));
-            emitter.message(message, socket._user, users.get(message.getTargetId()));
-            callback();
+            controller.sendMessage(socket, messageDTO, callback);
         } catch (error) {
             console.error(error);
             callback(error);
         }
     });
 
-    socket.on('getUsers', function(callback) {
-        callback(null, users.toDTO());
+    socket.on('getUsers', function (callback) {
+        controller.getUsers(socket, callback);
     });
 
-    socket.on('disconnect', function() {
-        var user = users.get(socket._user.getId());
-        user.removeSocket(socket);
-
-        if (user.getSockets().length == 0) {
-            emitter.logoutUser(socket);
-            users.remove(user);
-        }
+    socket.on('disconnect', function () {
+        controller.disconnect(socket);
     });
 });
 
