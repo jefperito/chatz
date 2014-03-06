@@ -24,9 +24,8 @@ suite('controller', function () {
             assert.ifError(error);
             assert.equal(userDTO.id, user.id);
             assert.equal(userDTO.name, user.name);
+            assert(emitterFake.newUser.calledOnce);
             done();
         });
-
-        assert(emitterFake.newUser.calledOnce);
     });
 });
