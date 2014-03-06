@@ -46,7 +46,13 @@ var socketController = (function () {
         login: login,
         sendMessage: sendMessage,
         disconnect: disconnect,
-        getUsers: getUsers
+        getUsers: getUsers,
+        get emitter() {
+            return emitter;
+        },
+        set emitter(_emitter) {
+            emitter = _emitter;
+        }
     };
 })();
 
