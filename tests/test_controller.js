@@ -29,7 +29,7 @@ suite('controller', function () {
         });
     });
 
-    test('should get user from repository when user always exist', function (done) {
+    test('should get user contfrom repository when user always exist', function (done) {
         var controller = require('./../server/controller');
         var socketFake = {};
         var userDTO = {
@@ -88,6 +88,25 @@ suite('controller', function () {
         controller.sendMessage(socketFake, messageDTO, function () {
             assert(emitterFake.message.calledOnce);
             done();
+        });
+    });
+
+    test('should get the users', function () {
+        var controller = require('./../server/controller');
+
+        var userFake1 = {
+            id: 1,
+            name: 'Jeferson Viana Perito'
+        };
+        var userFake2 = {
+            id: 2,
+            name: 'Anderson Silva'
+        };
+
+        controller.getUsers({}, function (error, users) {
+            assert.ifError(error);
+            assert.deepEqual(userFake1, users[1]);
+            assert.deepEqual(userFake2, users[2]);
         });
     });
 });
