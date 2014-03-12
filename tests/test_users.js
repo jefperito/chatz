@@ -1,19 +1,19 @@
 var assert = require('assert');
 
-suite('users', function() {
+suite('users', function () {
 	var users = require('./../server/repositories/users');
-	var User  = require('./../server/models/user');
+	var User = require('./../server/models/user');
 
-	setup(function() {
+	setup(function () {
 		users.setMap({});
 	});
 
-	suite('list', function() {
-		test('should to have empty list', function() {
+	suite('list', function () {
+		test('should to have empty list', function () {
 			assert.deepEqual({}, users.getMap());
 		});
 
-		test('should permits add a user to the list', function() {
+		test('should permits add a user to the list', function () {
 			var user = new User();
 
 			user.setId(1);
@@ -25,7 +25,7 @@ suite('users', function() {
 			assert.equal(1, user.getId());
 		});
 
-		test('should permits remove an user from the list', function() {
+		test('should permits remove an user from the list', function () {
 			var user = new User({
 				id: 1,
 				name: 'Jeferson Viana Perito'
@@ -37,7 +37,7 @@ suite('users', function() {
 			assert.equal(0, Object.keys(users.getMap()).length);
 		});
 
-		test('should permits update an user from the list', function() {
+		test('should permits update an user from the list', function () {
 			var user = new User();
 
 			user.setId(1);
@@ -48,9 +48,15 @@ suite('users', function() {
 			assert.deepEqual(user, users.get(1));
 		});
 
-		test('shoul permits convert map to DTOusers', function() {
-			var user1Data = {id: 1, name: 'Jeferson Viana Perito'};
-			var user2Data = {id: 2, name: 'Mahatma Gandhi'};
+		test('should permits convert map to DTOusers', function () {
+			var user1Data = {
+				id: 1,
+				name: 'Jeferson Viana Perito'
+			};
+			var user2Data = {
+				id: 2,
+				name: 'Mahatma Gandhi'
+			};
 
 			var user1 = new User(user1Data);
 			var user2 = new User(user2Data);
@@ -58,7 +64,10 @@ suite('users', function() {
 			users.add(user1);
 			users.add(user2);
 
-			assert.deepEqual({1: user1Data, 2: user2Data}, users.toDTO());
+			assert.deepEqual({
+				1: user1Data,
+				2: user2Data
+			}, users.toDTO());
 		});
 	});
 });
