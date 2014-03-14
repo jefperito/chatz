@@ -8,15 +8,6 @@ Chat em desenvolvimento...
 ## Para instalar:
  - npm install
 
-## TODO
- - Resolver referencia cíclica entre socket e user.
- - Mudar as listas para armazenar no redis
- - Melhorar a demo
- - Listener ser um greenlet
- - Manter coleções de entidade no redis
- - Criar um timer para evitar desconexão por refresh de navegador
- - Refatorar getters/setters para as built in features
-
 ## Arquitetura
 
 ![alt tag](https://raw.github.com/jefperito/chatz/master/docs/Diagram.png)
@@ -37,13 +28,30 @@ Chat em desenvolvimento...
  - Ouvir as mudanças do cache service
  - python, gevent, RethinkDb
 
+## Features
+ - WebSocket/http-polling como transporte
+ - Hard realtime
+ - Multi conexões de um mesmo usuario
+ - Controle de timeout para armazenamento da sessao do usuario (util para refresh de usuario)
+ - Distribuido (recursos compartilhados atraves do redis entre os nodos)
+ - Suporta mobile
+
+## Testes
+Rodar o code coverage com mocha e istanbul:
+ - UNIX: istanbul cover _mocha -- -R spec -u tdd ./tests/
+ - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./tests/
+
 ## Dúvidas/requisitos para serem resolvidos
  - Chat escalável e distribuido? redis como centralizador dos recursos possui o melhor custo benefício?
  - Estabilidade de software, como conseguir? Apenas testes automatizados sana esse tipo de problema?
  - Interface plugável, como conseguir uma interface de fácil injeção em sites de terceiros
  - Interface modular e com boa arquitetura, gerenciar objetos > gerenciar DOMs (knockout.js pode dar uma mão)
 
-## Testes
-Rodar o code coverage com mocha e istanbul: 
- - UNIX: istanbul cover _mocha -- -R spec -u tdd ./tests/
- - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./tests/
+## TODO
+ - Resolver referencia cíclica entre socket e user.
+ - Mudar as listas para armazenar no redis
+ - Melhorar a demo
+ - Listener ser um greenlet
+ - Manter coleções de entidade no redis
+ - Criar um timer para evitar desconexão por refresh de navegador
+ - Refatorar getters/setters para as built in features
