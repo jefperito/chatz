@@ -9,9 +9,9 @@ var controller = require('./controller');
 db.init();
 
 var configuration = {
-    'log level': 0,
+    'log level': config.SOCKET_LOG_LEVEL,
     'browser client minification': true,
-    origins: '*:*'
+    'origins': config.ORIGINS
 };
 
 var io = require('socket.io').listen(config.PORT, configuration);
