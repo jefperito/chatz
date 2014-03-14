@@ -10,13 +10,12 @@ Chat em desenvolvimento...
 
 ## TODO
  - Resolver referencia cíclica entre socket e user.
- - Refatorar index.js
- - Criar testes para index.js
  - Mudar as listas para armazenar no redis
  - Melhorar a demo
  - Listener ser um greenlet
  - Manter coleções de entidade no redis
  - Criar um timer para evitar desconexão por refresh de navegador
+ - Refatorar getters/setters para as built in features
 
 ## Arquitetura
 

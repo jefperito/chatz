@@ -50,6 +50,10 @@
 				$('#users_list').append(user.name + '<br/>')
 			});
 
+			socket.on('removeUser', function(user) {
+				alert('Remocao: ' + JSON.stringify(user));
+			});
+
 			socket.on('receiveMsg', function(message) {
 				var sender = usersOnChat[message.sender_id];
 

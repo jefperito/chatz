@@ -1,6 +1,9 @@
 var socketController = (function () {
     var users = require('./repositories/users');
     var emitter = require('./communication/emitter');
+    var config = require('./config');
+    var counters = {};
+    // Protocol Functions
 
     function login(socket, userDTO, callback) {
         var User = require('./../server/models/user');
@@ -12,6 +15,10 @@ var socketController = (function () {
             users.add(userPersisted);
             socket._user = userPersisted;
             emitter.newUser(socket);
+        } else {
+            if (counters.hasOwnProperty(userPersisted.getId())) {
+                clearInterval(userPersisted.getId());
+            }
         }
 
         socket._user = userPersisted;
@@ -33,13 +40,23 @@ var socketController = (function () {
     }
 
     function disconnect(socket) {
-        var user = users.get(socket._user.getId());
-        user.removeSocket(socket);
+        counter(socket, socket._user.getId());
+    }
 
-        if (user.getSockets().length === 0) {
-            emitter.logoutUser(socket);
-            users.remove(user);
-        }
+    // Helper functions
+
+    function counter(socket, userId) {
+        counters[userId] = setInterval(function () {
+            var user = users.get(socket._user.getId());
+            user.removeSocket(socket);
+
+            if (user.getSockets().length === 0) {
+                emitter.logoutUser(socket);
+                users.remove(user);
+            }
+
+            clearInterval(counters[userId]);
+        }, config.OUT_TIME);
     }
 
     return {
