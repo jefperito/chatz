@@ -39,7 +39,6 @@
 						$('#users_list').append($('<li>', {
 							id: 'ul_' + _id
 						}).append(usersOnChat[_id].name));
-//						$('#users_list').append(usersOnChat[_id].name + '<br/>')
 						if (id != _id) {
 							target_id = _id;
 						}
@@ -50,7 +49,6 @@
 			socket.on('newUser', function(user) {
 				usersOnChat[user.id] = user;
 				target_id = user.id;
-				// $('#users_list').append(user.name + '<br/>')
 				$('#users_list').append($('<li>', {
 					id: 'ul_' + user.id
 				}).append(user.name));
