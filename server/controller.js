@@ -40,20 +40,21 @@ var socketController = (function () {
     }
 
     function disconnect(socket) {
-        counter(socket, socket._user.getId());
+        var user = users.get(socket._user.getId());
+        user.removeSocket(socket);
+
+        if (user.getSockets().length === 0) {
+            counter(socket, user);
+        }
     }
 
     // Helper functions
 
-    function counter(socket, userId) {
+    function counter(socket, user) {
+        var userId = user.getId();
         counters[userId] = setInterval(function () {
-            var user = users.get(socket._user.getId());
-            user.removeSocket(socket);
-
-            if (user.getSockets().length === 0) {
-                emitter.logoutUser(socket);
-                users.remove(user);
-            }
+            emitter.logoutUser(socket);
+            users.remove(user);
 
             clearInterval(counters[userId]);
         }, config.OUT_TIME);
