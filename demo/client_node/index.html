@@ -36,7 +36,10 @@
 					var ids = Object.keys(users);
 
 					ids.forEach(function(_id) {
-						$('#users_list').append(usersOnChat[_id].name + '<br/>')
+						$('#users_list').append($('<li>', {
+							id: 'ul_' + _id
+						}).append(usersOnChat[_id].name));
+//						$('#users_list').append(usersOnChat[_id].name + '<br/>')
 						if (id != _id) {
 							target_id = _id;
 						}
@@ -47,11 +50,14 @@
 			socket.on('newUser', function(user) {
 				usersOnChat[user.id] = user;
 				target_id = user.id;
-				$('#users_list').append(user.name + '<br/>')
+				// $('#users_list').append(user.name + '<br/>')
+				$('#users_list').append($('<li>', {
+					id: 'ul_' + user.id
+				}).append(user.name));
 			});
 
 			socket.on('removeUser', function(user) {
-				alert('Remocao: ' + JSON.stringify(user));
+				$('#ul_' + user.id).remove();
 			});
 
 			socket.on('receiveMsg', function(message) {
@@ -84,7 +90,7 @@
 </head>
 <body>
 	<div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8; float: left"></div>
-	<div id="users_list" style="height: 300px; width: 150px; float: left; background-color: #666; color: #FFF"></div><br/>
+	<ul id="users_list" style="height: 300px; width: 150px; float: left; background-color: #666; color: #FFF"></ul><br/>
 	<div style="top: 310px; position: absolute">
 		<input id="msg" name="msg" type="text" size="50" />
 		<button id="send_button" type="button">Send</button>
