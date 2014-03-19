@@ -1,5 +1,3 @@
-var users = require('./repositories/users');
-var emitter = require('./communication/emitter');
 var db = require('./persistence/db');
 var redis = require('redis');
 var RedisStore = require('socket.io/lib/stores/redis');

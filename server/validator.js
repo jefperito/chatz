@@ -8,7 +8,7 @@ var validator = (function() {
 	}
 
 	function user(_user) {
-		if (Object.prototype.toString.call(_user) != '[object Object]') {
+		if (Object.prototype.toString.call(_user) !== '[object Object]') {
 			throw new TypeError('the parameter is not an object');
 		}
 
@@ -22,7 +22,7 @@ var validator = (function() {
 	}
 
 	function message(_message) {
-		if (Object.prototype.toString.call(_message) != '[object Object]') {
+		if (Object.prototype.toString.call(_message) !== '[object Object]') {
 			throw new TypeError('the parameter is not an object');
 		}
 

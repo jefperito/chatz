@@ -48,5 +48,4 @@ Rodar o code coverage com mocha e istanbul:
  - Melhorar a demo
  - Listener ser um greenlet
  - Manter coleções de entidade no redis
- - Criar um timer para evitar desconexão por refresh de navegador
  - Refatorar getters/setters para as built in features
