@@ -1,47 +1,67 @@
 var users = (function() {
-	'use strict';
+    'use strict';
 
-	var usersMap = {};
+    var redis = require('redis');
+    var client = redis.createClient();
 
-	function getMap() {
-		return usersMap;
-	}
+    client.get('chatz:users', function(error, result) {
+        if (error) {
+            console.error('Redis: Nao foi possivel obter os usuarios');
+            return;
+        }
 
-	function setMap(map) {
-		usersMap = map;
-	}
+        if (result === null) {
+            console.log('Redis: Criando a lista de usuarios');
 
-	function get(id) {
-		return usersMap[id];
-	}
+            client.set('chatz:users', function(error, result) {
+                if (error) {
+                    console.log('Redis: Nao foi possivel fixar os usuarios');
+                }
+            });
+        }
+    });
 
-	function add(user) {
-		usersMap[user.getId()] = user;
-	}
+    var usersMap = {};
 
-	function remove(user) {
-		delete usersMap[user.getId()];
-	}
+    function getMap() {
+        return usersMap;
+    }
 
-	function toDTO() {
-		var usersDTO = {};
-		var keys = Object.keys(usersMap);
+    function setMap(map) {
+        usersMap = map;
+    }
 
-		keys.forEach(function(key) {
-			usersDTO[key] = usersMap[key].toDTO();
-		});
+    function get(id) {
+        return usersMap[id];
+    }
 
-		return usersDTO;
-	}
+    function add(user) {
+        usersMap[user.getId()] = user;
+    }
 
-	return {
-		getMap: getMap,
-		setMap: setMap,
-		add: add,
-		get: get,
-		remove: remove,
-		toDTO: toDTO
-	};
+    function remove(user) {
+        delete usersMap[user.getId()];
+    }
+
+    function toDTO() {
+        var usersDTO = {};
+        var keys = Object.keys(usersMap);
+
+        keys.forEach(function(key) {
+            usersDTO[key] = usersMap[key].toDTO();
+        });
+
+        return usersDTO;
+    }
+
+    return {
+        getMap: getMap,
+        setMap: setMap,
+        add: add,
+        get: get,
+        remove: remove,
+        toDTO: toDTO
+    };
 })();
 
 module.exports = users;
