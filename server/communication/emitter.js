@@ -1,14 +1,13 @@
 var emitter = (function () {
 	'use strict';
 
-	function emitMessageToSockets(sockets, msg) {
+	function emitMessageToSockets(room, sockets, msg) {
 		sockets.forEach(function (socket) {
-			socket.emit('receiveMsg', msg);
+			socket.emit('receiveMsg', msg, room.getId());
 		});
 	}
 
 	function newUser(socket) {
-		console.log(socket._user.toDTO());
 		socket.broadcast.emit('newUser', socket._user.toDTO());
 	}
 
@@ -16,9 +15,9 @@ var emitter = (function () {
 		socket.broadcast.emit('removeUser', socket._user.toDTO());
 	}
 
-	function message(msg, senderUser, targetUser) {
-		emitMessageToSockets(senderUser.getSockets(), msg);
-		emitMessageToSockets(targetUser.getSockets(), msg);
+	function message(room, msg, senderUser, targetUser) {
+		emitMessageToSockets(room, senderUser.getSockets(), msg);
+		emitMessageToSockets(room, targetUser.getSockets(), msg);
 	}
 
 	return {

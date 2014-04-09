@@ -8,6 +8,7 @@ function User(userDTO) {
     }
 
     this.sockets = [];
+    this.rooms = [];
 }
 
 User.prototype.setName = function(name) {
@@ -25,7 +26,11 @@ User.prototype.getName = function() {
 };
 
 User.prototype.addSocket = function(socket) {
+    var self = this;
     this.sockets.push(socket);
+    this.rooms.forEach(function(room) {
+        socket.join(room);
+    });
 };
 
 User.prototype.removeSocket = function(socket) {
@@ -49,6 +54,14 @@ User.prototype.toDTO = function() {
         id: this.id,
         name: this.name
     };
+};
+
+User.prototype.addRoom = function(room) {
+    this.sockets.forEach(function(socket) {
+        socket.join(room);
+    });
+
+    this.rooms.push(room);
 };
 
 module.exports = User;

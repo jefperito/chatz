@@ -1,5 +1,6 @@
 var socketController = (function () {
     var users = require('./repositories/users');
+    var rooms = require('./repositories/rooms');
     var emitter = require('./communication/emitter');
     var config = require('./config');
     var counters = {};
@@ -30,7 +31,17 @@ var socketController = (function () {
     function sendMessage(socket, messageDTO, callback) {
         var Message = require('./../server/models/message');
         var message = new Message(messageDTO);
-        emitter.message(message, socket._user, users.get(message.getTargetId()));
+        var room = rooms.getByMessage(message);
+        var target = users.get(message.getTargetId());
+
+        if (room.isNew()) {
+            socket._user.addRoom(room.getId());
+            target.addRoom(room.getId());
+            room.ok();
+        }
+
+        room.addMessage(message);
+        emitter.message(room, message, socket._user, target);
 
         callback();
     }
