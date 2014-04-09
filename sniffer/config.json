@@ -1,6 +1,0 @@
-{
-    "REDIS_HOST": "localhost",
-    "REDIS_PORT": "6379",
-    "RETHINKDB_HOST": "localhost",
-    "RETHINKDB_PORT": "28015"
-}

@@ -13,18 +13,10 @@ var configuration = {
 };
 
 var io = require('socket.io').listen(config.PORT, configuration);
-io.set('store', new RedisStore({
-    redis: redis,
-    pub: redis.createClient(),
-    sub: redis.createClient(),
-    client: redis.createClient()
-}));
 
 // Protocol
 io.sockets.on('connection', function (socket) {
-    var pub = redis.createClient();
     socket.on('login', function (userDTO, callback) {
-        pub.publish('login', JSON.stringify(userDTO));
         try {
             controller.login(socket, userDTO, callback);
         } catch (error) {
@@ -35,7 +27,6 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('sendMessage', function (messageDTO, callback) {
         try {
-            pub.publish('message', JSON.stringify(messageDTO));
             controller.sendMessage(socket, messageDTO, callback);
         } catch (error) {
             console.error(error);
