@@ -50,6 +50,10 @@ var socketController = (function () {
         callback(null, users.toDTO());
     }
 
+    function getRooms(socket) {
+        return socket._user.getRoomsDTO();
+    }
+
     function disconnect(socket) {
         var user = users.get(socket._user.getId());
         user.removeSocket(socket);
@@ -76,6 +80,7 @@ var socketController = (function () {
         sendMessage: sendMessage,
         disconnect: disconnect,
         getUsers: getUsers,
+        getRooms: getRooms,
         get emitter() {
             return emitter;
         },

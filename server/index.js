@@ -38,6 +38,10 @@ io.sockets.on('connection', function (socket) {
         controller.getUsers(socket, callback);
     });
 
+    socket.on('getRooms', function (callback) {
+        callback(controller.getRooms(socket));
+    });
+
     socket.on('disconnect', function () {
         controller.disconnect(socket);
     });

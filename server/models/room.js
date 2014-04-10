@@ -1,4 +1,5 @@
 function Room(id, sender_id, target_id) {
+    // Mudar sender e target para uma lista de participantes
     this.id = id;
     this.sender_id = sender_id;
     this.target_id = target_id;
@@ -15,5 +16,11 @@ Room.prototype.getId = function() { return this.id; };
 Room.prototype.isNew = function() { return this.new; };
 
 Room.prototype.ok = function() { this.new = false; };
+
+Room.prototype.toDTO = function() {
+    return {
+        messages: this.messages
+    };
+};
 
 module.exports = Room;
