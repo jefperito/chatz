@@ -19,6 +19,7 @@ Room.prototype.ok = function() { this.new = false; };
 
 Room.prototype.toDTO = function() {
     return {
+        id: this.id,
         messages: this.messages
     };
 };

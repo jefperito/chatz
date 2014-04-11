@@ -26,12 +26,12 @@ var validator = (function() {
 			throw new TypeError('the parameter is not an object');
 		}
 
-		if (!_message.hasOwnProperty('target_id')) {
-			throw new NoPropertyException('object has not property target_id');
+		if (!_message.hasOwnProperty('target')) {
+			throw new NoPropertyException('object has not property target');
 		}
 
-		if (!_message.hasOwnProperty('sender_id')) {
-			throw new NoPropertyException('object has not property sender_id');
+		if (!_message.hasOwnProperty('sender')) {
+			throw new NoPropertyException('object has not property sender');
 		}
 
 		if (!_message.hasOwnProperty('body')) {

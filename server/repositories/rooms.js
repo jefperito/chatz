@@ -3,11 +3,12 @@ var rooms = (function() {
     var roomsMap = {};
 
     function getByMessage(message) {
-        var key = [message.getSenderId(), message.getTargetId()].sort().join('_');
+        // TODO precisa de uma magica aqui (hash)
+        var key = [message.getSender().id, message.getTarget().id].sort().join('_');
         var room = roomsMap[key];
 
         if (!room) {
-            roomsMap[key] = new Room(key, message.getSenderId(), message.getTargetId());
+            roomsMap[key] = new Room(key, message.getSender().id, message.getTarget().id);
         }
 
         return roomsMap[key];

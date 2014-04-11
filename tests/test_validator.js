@@ -79,7 +79,7 @@ suite('validator', function() {
 
 		test('should throws exception if message has not own property target_id', function() {
 			var message = {
-				sender_id: 2,
+				sender: {},
 				body: 'Hello World!'
 			};
 
@@ -95,7 +95,7 @@ suite('validator', function() {
 
 		test('should throws exception if message has not own property sender_id', function() {
 			var message = {
-				target_id: 1,
+				target: {id: 1},
 				body: 'Hello World'
 			};
 
@@ -111,8 +111,8 @@ suite('validator', function() {
 
 		test('should throws exception if message has not own property body', function() {
 			var message = {
-				target_id: 1,
-				sender_id: 2
+				target: {id: 1},
+				sender: {id: 2}
 			};
 
 			assert.throws(
@@ -127,8 +127,8 @@ suite('validator', function() {
 
 		test('should validate if message has all properties', function() {
 			var message = {
-				target_id: 1,
-				sender_id: 2,
+				target: {id: 1},
+				sender: {id: 2},
 				body: 'Hello World!'
 			};
 

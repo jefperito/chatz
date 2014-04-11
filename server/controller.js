@@ -30,9 +30,11 @@ var socketController = (function () {
 
     function sendMessage(socket, messageDTO, callback) {
         var Message = require('./../server/models/message');
+        messageDTO.target = users.get(messageDTO.target_id).toDTO();
+        messageDTO.sender = users.get(messageDTO.sender_id).toDTO();
         var message = new Message(messageDTO);
         var room = rooms.getByMessage(message);
-        var target = users.get(message.getTargetId());
+        var target = users.get(message.getTarget().id);
 
         if (room.isNew()) {
             socket._user.addRoom(room.getId());

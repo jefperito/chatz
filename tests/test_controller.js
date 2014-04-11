@@ -5,7 +5,9 @@ suite('controller', function () {
     test('should execute callback passing a new user', function (done) {
         var controller = require('./../server/controller');
 
-        var socketFake = {};
+        var socketFake = {
+            join: function(room) {}
+        };
         var userDTO = {
             id: 1,
             name: 'Jeferson Viana Perito'
@@ -31,10 +33,12 @@ suite('controller', function () {
 
     test('should get user contfrom repository when user always exist', function (done) {
         var controller = require('./../server/controller');
-        var socketFake = {};
+        var socketFake = {
+            join: function(room) {}
+        };
         var userDTO = {
             id: 1,
-            name: 'Jeferson Viana Perito'
+            name: 'Jeferson Viana Perito',
         };
         var emitterFake = {
             newUser: function (socket) {}
@@ -54,12 +58,14 @@ suite('controller', function () {
 
     test('should get a message when the client send it', function (done) {
         var controller = require('./../server/controller');
+
         var userFake1 = {
             id: 1,
             name: 'Jeferson Viana Perito'
         };
-        var socketFake = {
-            _user: userFake1
+        var socketFake1 = {
+            _user: userFake1,
+            join: function (room) {}
         };
         var messageDTO = {
             target_id: 1,
@@ -70,11 +76,14 @@ suite('controller', function () {
             id: 2,
             name: 'Anderson Silva'
         };
-
+        var socketFake2 = {
+            _user: userFake2,
+            join: function (room) {}
+        };
         var emitterFake = {
             newUser: function (socket) {},
-            message: function (message, user, targetUser) {
-                assert.deepEqual(messageDTO, message);
+            message: function (room, message, user, targetUser) {
+                assert.deepEqual({target: userFake1, sender: userFake2, body: 'hello world'}, message);
                 // TODO Corrigir problemas com referencia circular
                 // assert.deepEqual(userFake1, user);
                 // assert.deepEqual(userFake2, targetUser);
@@ -84,8 +93,9 @@ suite('controller', function () {
         sinon.spy(emitterFake, 'message');
 
         controller.emitter = emitterFake;
-        controller.login(socketFake, userFake2, function () {});
-        controller.sendMessage(socketFake, messageDTO, function () {
+        controller.login(socketFake2, userFake2, function () {});
+        controller.login(socketFake1, userFake1, function () {});
+        controller.sendMessage(socketFake1, messageDTO, function () {
             assert(emitterFake.message.calledOnce);
             done();
         });

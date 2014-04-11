@@ -94,9 +94,13 @@ suite('emitter', function() {
 				_user: fakeUser2
 			};
 
+			var roomFake = {
+				getId: function() { return '1_2'; }
+			};
+
 			fakeUser1.addSocket(fakeSocket1);
 
-			emitter.message(message, fakeUser1, fakeUser2);
+			emitter.message(roomFake, message, fakeUser1, fakeUser2);
 		});
 	});
 });
