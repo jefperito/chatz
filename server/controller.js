@@ -63,11 +63,13 @@ var socketController = (function () {
     }
 
     function disconnect(socket) {
-        var user = users.get(socket._user.getId());
-        user.removeSocket(socket);
+        if (socket._user) {
+            var user = users.get(socket._user.getId());
+            user.removeSocket(socket);
 
-        if (user.getSockets().length === 0) {
-            counter(socket, user);
+            if (user.getSockets().length === 0) {
+                counter(socket, user);
+            }
         }
     }
 
