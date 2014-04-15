@@ -42,10 +42,13 @@ Rodar o code coverage com mocha e istanbul:
  - UNIX: istanbul cover _mocha -- -R spec -u tdd ./tests/
  - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./tests/
 
+## O que falta para o próximo release - Alpha 0.1
+ - Documentação em inglês
+ - Persistência das informacões (Opcional)
+ - Melhoria de código/testes
+ - Demos
+ - Bug quando o servidor sobe e possue janelas abertas
+
 ## TODO
  - Resolver referencia cíclica entre socket e user.
- - Mudar as listas para armazenar no redis
- - Melhorar a demo
- - Listener ser um greenlet
- - Manter coleções de entidade no redis
  - Refatorar getters/setters para as built in features
