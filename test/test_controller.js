@@ -133,19 +133,33 @@ suite('controller', function () {
             }
         };
 
-        var userFake = {
+        var userFake1 = {
             id: 1,
             name: 'Jeferson Viana Perito',
             getRooms: function() {
                 return ['1_2', '1_3'];
             }
         };
-        var socketFake = {
-            _user: userFake,
+        var socketFake1 = {
+            _user: userFake1,
             join: function (room) {}
         };
 
         controller.rooms = roomsFake;
-        assert.deepEqual([{id: '1_2'}, {id: '1_3'}], controller.getRooms(socketFake));
+        assert.deepEqual([{id: '1_2'}, {id: '1_3'}], controller.getRooms(socketFake1));
+
+        var userFake2 = {
+            id: 1,
+            name: 'Jeferson Viana Perito',
+            getRooms: function() {
+                return [];
+            }
+        };
+        var socketFake2 = {
+            _user: userFake2,
+            join: function (room) {}
+        };
+
+        assert.deepEqual([], controller.getRooms(socketFake2));
     });
 });

@@ -10,14 +10,15 @@ Chat em desenvolvimento...
  - npm install
 
 ## O que falta para o primeiro release
- - Documentação em inglês
- - Persistência das informações (Opcional)
+ - Hash do ID da sala
  - Melhoria de código/testes
+ - Documentação em inglês
  - Demos
 
 ## TODO
  - Resolver referência cíclica entre socket e user.
  - Refatorar getters/setters para as built in features
+ - Persistência das informações
 
 ## Testes
 Rodar o code coverage com mocha e istanbul:
