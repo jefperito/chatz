@@ -53,7 +53,13 @@ var socketController = (function () {
     }
 
     function getRooms(socket) {
-        return socket._user.getRoomsDTO();
+        var roomsDTO = [];
+        var roomsIds = socket._user.getRooms();
+        roomsIds.forEach(function(roomId) {
+            roomsDTO.push(rooms.get(roomId).toDTO());
+        });
+
+        return roomsDTO;
     }
 
     function disconnect(socket) {

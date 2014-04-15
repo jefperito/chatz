@@ -14,7 +14,12 @@ var rooms = (function() {
         return roomsMap[key];
     }
 
+    function get(id) {
+        return roomsMap[id];
+    }
+
     return {
+        get: get,
         getByMessage: getByMessage
     };
 })();

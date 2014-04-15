@@ -64,12 +64,8 @@ User.prototype.addRoom = function(room) {
     this.rooms.push(room);
 };
 
-User.prototype.getRoomsDTO = function() {
-    var roomsDTO = [];
-    this.rooms.forEach(function(room) {
-        roomsDTO.push(room.toDTO());
-    });
-    return roomsDTO;
+User.prototype.getRooms = function() {
+    return this.rooms;
 };
 
 module.exports = User;

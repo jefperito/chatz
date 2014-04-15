@@ -32,7 +32,6 @@
 					}
 
 					usersOnChat = users;
-
 					var ids = Object.keys(users);
 
 					ids.forEach(function(_id) {
@@ -42,6 +41,14 @@
 						if (id != _id) {
 							target_id = _id;
 						}
+					});
+
+					socket.emit('getRooms', function(rooms) {
+						rooms.forEach(function(room) {
+							room.messages.forEach(function(message) {
+								$('#msg_area').append('<b>' + message.sender.name + ':</b> ' + message.body + '<br/>');
+							});
+						});
 					});
 				});
 			});
@@ -59,10 +66,10 @@
 			});
 
 			socket.on('receiveMsg', function(message) {
-				var sender = usersOnChat[message.sender_id];
+				var sender = usersOnChat[message.sender.id];
 
-				if (message.sender_id != me.id) {
-					target_id = message.sender_id;
+				if (sender.id != me.id) {
+					target_id = sender.id;
 				}
 
 				$('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
