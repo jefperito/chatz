@@ -96,6 +96,12 @@ var socketController = (function () {
         },
         set emitter(_emitter) {
             emitter = _emitter;
+        },
+        get rooms() {
+            return rooms;
+        },
+        set rooms(_rooms) {
+            rooms = _rooms;
         }
     };
 })();

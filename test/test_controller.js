@@ -119,4 +119,33 @@ suite('controller', function () {
             assert.deepEqual(userFake2, users[2]);
         });
     });
+
+    test('should get the rooms', function () {
+        var controller = require('./../server/controller');
+
+        var roomsFake = {
+            get: function(id) {
+                return {
+                    toDTO: function() {
+                        return {id: id};
+                    }
+                };
+            }
+        };
+
+        var userFake = {
+            id: 1,
+            name: 'Jeferson Viana Perito',
+            getRooms: function() {
+                return ['1_2', '1_3'];
+            }
+        };
+        var socketFake = {
+            _user: userFake,
+            join: function (room) {}
+        };
+
+        controller.rooms = roomsFake;
+        assert.deepEqual([{id: '1_2'}, {id: '1_3'}], controller.getRooms(socketFake));
+    });
 });

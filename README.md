@@ -21,5 +21,5 @@ Chat em desenvolvimento...
 
 ## Testes
 Rodar o code coverage com mocha e istanbul:
- - UNIX: istanbul cover _mocha -- -R spec -u tdd ./tests/
- - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./tests/
+ - UNIX: istanbul cover _mocha -- -R spec -u tdd ./test/
+ - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./test/
