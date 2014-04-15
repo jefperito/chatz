@@ -11,7 +11,6 @@ Chat em desenvolvimento...
 
 ## O que falta para o primeiro release
  - Documentação em inglês
- - Definir os transportes
  - Persistência das informações (Opcional)
  - Melhoria de código/testes
  - Demos
