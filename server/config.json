@@ -2,5 +2,6 @@
     "PORT": 8081,
     "OUT_TIME": 15000,
     "SOCKET_LOG_LEVEL": 0,
-    "ORIGINS": "*:*"
+    "ORIGINS": "*:*",
+    "TOKEN": "foobar"
 }
