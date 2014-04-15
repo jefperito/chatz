@@ -1,8 +1,6 @@
 var db = (function() {
     'use strict';
 
-    var connection;
-
     function init() {
         establishesConnection();
     }

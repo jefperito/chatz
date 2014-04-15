@@ -1,6 +1,4 @@
 var db = require('./persistence/db');
-var redis = require('redis');
-var RedisStore = require('socket.io/lib/stores/redis');
 var config = require('./config');
 var controller = require('./controller');
 

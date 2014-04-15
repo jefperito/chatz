@@ -26,7 +26,6 @@ User.prototype.getName = function() {
 };
 
 User.prototype.addSocket = function(socket) {
-    var self = this;
     this.sockets.push(socket);
     this.rooms.forEach(function(room) {
         socket.join(room);
@@ -35,7 +34,7 @@ User.prototype.addSocket = function(socket) {
 
 User.prototype.removeSocket = function(socket) {
     this.sockets = this.sockets.filter(function(_socket) {
-        return socket.id != _socket.id;
+        return socket.id !== _socket.id;
     });
 };
 
