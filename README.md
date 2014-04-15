@@ -10,7 +10,6 @@ Chat em desenvolvimento...
  - npm install
 
 ## O que falta para o primeiro release
- - Hash do ID da sala
  - Melhoria de código/testes
  - Documentação em inglês
  - Demos
