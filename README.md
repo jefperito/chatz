@@ -47,7 +47,6 @@ Rodar o code coverage com mocha e istanbul:
  - Persistência das informacões (Opcional)
  - Melhoria de código/testes
  - Demos
- - Bug quando o servidor sobe e possue janelas abertas
 
 ## TODO
  - Resolver referencia cíclica entre socket e user.
