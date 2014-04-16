@@ -162,4 +162,39 @@ suite('controller', function () {
 
         assert.deepEqual([], controller.getRooms(socketFake2));
     });
+
+    test('should kill an user when disconnected after 10 seconds', function(done) {
+        var controller = require('./../server/controller');
+        var clock = sinon.useFakeTimers();
+        var userFake = {
+            id: 1,
+            name: 'Jeferson Viana Perito',
+            getRooms: function() {
+                return ['1_2', '1_3'];
+            },
+            removeSocket: function(socket) {},
+            getId: function() {
+                return 1;
+            },
+            getSockets: function() {
+                return [];
+            }
+        };
+        var socketFake = {
+            _user: userFake,
+            join: function (room) {}
+        };
+        var emitterFake = {
+            logoutUser: function(socket) {
+                assert(emitterFake.logoutUser.calledOnce);
+                done();
+            }
+        };
+
+
+        sinon.spy(emitterFake, 'logoutUser');
+        controller.emitter = emitterFake;
+        controller.disconnect(socketFake);
+        clock.tick(15010);
+    });
 });
