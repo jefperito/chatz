@@ -1,8 +1,5 @@
-function Room(id, sender_id, target_id) {
-    // Mudar sender e target para uma lista de participantes
+function Room(id) {
     this.id = id;
-    this.sender_id = sender_id;
-    this.target_id = target_id;
     this.messages = [];
     this.new = true;
 }
