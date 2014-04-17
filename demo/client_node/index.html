@@ -1,105 +1,106 @@
 <!DOCTYPE HTML>
 <html lang="pt-BR">
 <head>
-	<title>CLIENTE DO CHAT 0.1</title>
-	<script src="http://localhost:8081/socket.io/socket.io.js"></script>
-	<script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			var socket = io.connect('http://localhost:8081');
+    <title>CLIENTE DO CHAT 0.1</title>
+    <script src="http://localhost:8081/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="./../../client/chatz.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            chatz.init('http://localhost:8081');
 
-			var id = prompt('Digite o id', '1');
-			var name = prompt('Digite o seu nome', 'Jeferson');
-			var target_id;
-			var me;
-			var usersOnChat;
+            var id = prompt('Digite o id', '1');
+            var name = prompt('Digite o seu nome', 'Jeferson');
+            var target_id;
+            var me;
+            var usersOnChat;
 
-			socket.emit('login', {id: id, name: name}, function(error, user) {
-				if (error) {
-					alert('Houve um erro registrando o usuário ' + JSON.stringify(error));
-					return ;
-				}
+            chatz.addUser({id: id, name: name}, function (error, user) {
+                if (error) {
+                    alert('Houve um erro registrando o usuário ' + JSON.stringify(error));
+                    return ;
+                }
 
-				me = user;
+                me = user;
 
-				$('#profile').append('<strong>ID: ' + me.id + '<br/>');
-				$('#profile').append('<strong>Nome: ' + me.name + '<br/>');
+                $('#profile').append('<strong>ID:</strong> ' + me.id + '<br/>');
+                $('#profile').append('<strong>Nome:</strong> ' + me.name + '<br/>');
 
-				socket.emit('getUsers', function(error, users) {
-					if (error) {
-						alert('Houve um erro obtendo os usuários');
-						return ;
-					}
+                chatz.getUsers(function(error, users) {
+                    if (error) {
+                        alert('Houve um erro obtendo os usuários');
+                        return ;
+                    }
 
-					usersOnChat = users;
-					var ids = Object.keys(users);
+                    usersOnChat = users;
+                    var ids = Object.keys(users);
 
-					ids.forEach(function(_id) {
-						$('#users_list').append($('<li>', {
-							id: 'ul_' + _id
-						}).append(usersOnChat[_id].name));
-						if (id != _id) {
-							target_id = _id;
-						}
-					});
+                    ids.forEach(function(_id) {
+                        $('#users_list').append($('<li>', {
+                            id: 'ul_' + _id
+                        }).append(usersOnChat[_id].name));
+                        if (id != _id) {
+                            target_id = _id;
+                        }
+                    });
 
-					socket.emit('getRooms', function(rooms) {
-						rooms.forEach(function(room) {
-							room.messages.forEach(function(message) {
-								$('#msg_area').append('<b>' + message.sender.name + ':</b> ' + message.body + '<br/>');
-							});
-						});
-					});
-				});
-			});
+                    chatz.getRooms(function(rooms) {
+                        rooms.forEach(function(room) {
+                            room.messages.forEach(function(message) {
+                                $('#msg_area').append('<b>' + message.sender.name + ':</b> ' + message.body + '<br/>');
+                            });
+                        });
+                    });
+                });
+            });
 
-			socket.on('newUser', function(user) {
-				usersOnChat[user.id] = user;
-				target_id = user.id;
-				$('#users_list').append($('<li>', {
-					id: 'ul_' + user.id
-				}).append(user.name));
-			});
+            chatz.addEvent('newUser', function(user) {
+                usersOnChat[user.id] = user;
+                target_id = user.id;
+                $('#users_list').append($('<li>', {
+                    id: 'ul_' + user.id
+                }).append(user.name));
+            });
 
-			socket.on('removeUser', function(user) {
-				$('#ul_' + user.id).remove();
-			});
+            chatz.addEvent('removeUser', function(user) {
+                $('#ul_' + user.id).remove();
+            });
 
-			socket.on('receiveMsg', function(message) {
-				var sender = usersOnChat[message.sender.id];
+            chatz.addEvent('receiveMsg', function(message) {
+                var sender = usersOnChat[message.sender.id];
 
-				if (sender.id != me.id) {
-					target_id = sender.id;
-				}
+                if (sender.id != me.id) {
+                    target_id = sender.id;
+                }
 
-				$('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
-			});
+                $('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
+            });
 
-			$('#send_button').click(function() {
-				socket.emit('sendMessage', {
-					target_id: target_id,
-					sender_id: me.id,
-					body: document.getElementById('msg').value
-				}, function(error) {
-					if (error) {
-						alert('Houve um erro no envio de mensagem');
+            $('#send_button').click(function() {
+                chatz.sendMessage({
+                    target_id: target_id,
+                    sender_id: me.id,
+                    body: document.getElementById('msg').value
+                },function(error) {
+                    if (error) {
+                        alert('Houve um erro no envio de mensagem');
 
-						return;
-					}
+                        return;
+                    }
 
-					$('#msg').val('');
-				});
-			});
-		});
-	</script>
+                    $('#msg').val('');
+                });
+            });
+        });
+    </script>
 </head>
 <body>
-	<div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8; float: left"></div>
-	<ul id="users_list" style="height: 300px; width: 150px; float: left; background-color: #666; color: #FFF"></ul><br/>
-	<div style="top: 310px; position: absolute">
-		<input id="msg" name="msg" type="text" size="50" />
-		<button id="send_button" type="button">Send</button>
-	</div>
-	<div id="profile" style="height: 150px; width: 250px; float: left; background-color: #ADD190; position: absolute; top: 360px" />
+    <div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8; float: left"></div>
+    <ul id="users_list" style="height: 300px; width: 150px; float: left; background-color: #666; color: #FFF"></ul><br/>
+    <div style="top: 310px; position: absolute">
+        <input id="msg" name="msg" type="text" size="50" />
+        <button id="send_button" type="button">Send</button>
+    </div>
+    <div id="profile" style="height: 150px; width: 250px; float: left; background-color: #ADD190; position: absolute; top: 360px" />
 </body>
 </html>

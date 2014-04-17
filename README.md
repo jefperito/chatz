@@ -18,6 +18,7 @@ Chat em desenvolvimento...
  - Resolver referência cíclica entre socket e user.
  - Refatorar getters/setters para as built in features
  - Persistência das informações
+ - browserify
 
 ## Testes
 Rodar o code coverage com mocha e istanbul:
