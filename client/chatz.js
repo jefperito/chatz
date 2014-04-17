@@ -46,6 +46,10 @@ var chatz = (function() {
         socket.emit('getUsers', callback);
     }
 
+    function joinRoom(roomId, callback) {
+        socket.emit('joinRoom', roomId, callback);
+    }
+
     function getRooms(callback) {
         socket.emit('getRooms', callback);
     }
@@ -73,6 +77,7 @@ var chatz = (function() {
         getUsers: getUsers,
         getRooms: getRooms,
         sendMessage: sendMessage,
-        addEvent: addEvent
+        addEvent: addEvent,
+        joinRoom: joinRoom
     };
 })();

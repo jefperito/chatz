@@ -6,6 +6,10 @@ var socketController = (function () {
     var counters = {};
     // Protocol Functions
 
+    if (!config.MULTIPLE_ROOMS) {
+        rooms.createDefault();
+    }
+
     function login(socket, userDTO, callback) {
         var User = require('./../server/models/user');
         var user = new User(userDTO);
@@ -52,6 +56,12 @@ var socketController = (function () {
         callback(null, users.toDTO());
     }
 
+    function joinRoom(socket, roomId) {
+        if (rooms.get(roomId)) {
+            socket._user.addRoom(roomId);
+        }
+    }
+
     function getRooms(socket) {
         var roomsDTO = [];
         var roomsIds = socket._user.getRooms();
@@ -90,6 +100,7 @@ var socketController = (function () {
         sendMessage: sendMessage,
         disconnect: disconnect,
         getUsers: getUsers,
+        joinRoom: joinRoom,
         getRooms: getRooms,
         get emitter() {
             return emitter;

@@ -26,6 +26,11 @@
                 $('#profile').append('<strong>ID:</strong> ' + me.id + '<br/>');
                 $('#profile').append('<strong>Nome:</strong> ' + me.name + '<br/>');
 
+                // Entra na sala padrao
+                chatz.joinRoom(1, function(error) {
+                    if (!error) console.log('entrou na sala');
+                });
+
                 chatz.getUsers(function(error, users) {
                     if (error) {
                         alert('Houve um erro obtendo os usuários');

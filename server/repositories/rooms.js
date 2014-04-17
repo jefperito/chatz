@@ -9,7 +9,7 @@ var rooms = (function() {
         var room = roomsMap[key];
 
         if (!room) {
-            roomsMap[key] = new Room(key, message.getSender().id, message.getTarget().id);
+            roomsMap[key] = new Room(key);
         }
 
         return roomsMap[key];
@@ -17,6 +17,10 @@ var rooms = (function() {
 
     function get(id) {
         return roomsMap[id];
+    }
+
+    function createDefault() {
+        roomsMap[1] = new Room(1);
     }
 
     return {

@@ -3,5 +3,6 @@
     "OUT_TIME": 15000,
     "SOCKET_LOG_LEVEL": 0,
     "ORIGINS": "*:*",
+    "MULTIPLE_ROOMS": false,
     "TOKEN": "foobar"
 }

@@ -41,6 +41,11 @@ io.sockets.on('connection', function (socket) {
         callback(controller.getRooms(socket));
     });
 
+    socket.on('joinRoom', function (roomId, callback) {
+        controller.joinRoom(socket, roomId);
+        callback();
+    });
+
     socket.on('disconnect', function () {
         controller.disconnect(socket);
     });
