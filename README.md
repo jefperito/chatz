@@ -9,16 +9,13 @@ Chat em desenvolvimento...
 ## Para instalar:
  - npm install
 
-## O que falta para o primeiro release
- - Melhoria de código/testes
- - Documentação em inglês
- - Demos
-
-## TODO
+## O que falta fazer para o primeiro release
+ - Mudar a forma de enviar mensagem (para uma sala ao inves para um usuario)
  - Resolver referência cíclica entre socket e user.
  - Refatorar getters/setters para as built in features
- - Persistência das informações
- - browserify
+ - browserify (talvez)
+ - Documentação em inglês
+ - Demos
 
 ## Testes
 Rodar o code coverage com mocha e istanbul:
