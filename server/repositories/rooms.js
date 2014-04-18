@@ -1,4 +1,6 @@
 var rooms = (function() {
+    'use strict';
+
     var Room = require('./../models/room');
     var config = require('./../config');
     var roomsMap = {};
@@ -20,12 +22,13 @@ var rooms = (function() {
     }
 
     function createDefault() {
-        roomsMap[1] = new Room(1);
+        roomsMap['1'] = new Room('1');
     }
 
     return {
         get: get,
-        getByMessage: getByMessage
+        getByMessage: getByMessage,
+        createDefault: createDefault
     };
 })();
 

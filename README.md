@@ -10,7 +10,6 @@ Chat em desenvolvimento...
  - npm install
 
 ## O que falta fazer para o primeiro release
- - Mudar a forma de enviar mensagem (para uma sala ao inves para um usuario)
  - Resolver referência cíclica entre socket e user.
  - Refatorar getters/setters para as built in features
  - browserify (talvez)

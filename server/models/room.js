@@ -1,18 +1,19 @@
 function Room(id) {
     this.id = id;
     this.messages = [];
-    this.new = true;
 }
 
-Room.prototype.addMessage = function(message) { this.messages.push(message); };
+Room.prototype.addMessage = function(message) {
+    this.messages.push(message);
+};
 
-Room.prototype.getMessages = function() { return this.messages; };
+Room.prototype.getMessages = function() {
+    return this.messages;
+};
 
-Room.prototype.getId = function() { return this.id; };
-
-Room.prototype.isNew = function() { return this.new; };
-
-Room.prototype.ok = function() { this.new = false; };
+Room.prototype.getId = function() {
+    return this.id;
+};
 
 Room.prototype.toDTO = function() {
     return {

@@ -1,4 +1,4 @@
-var socketController = (function () {
+var socketController = (function() {
     var users = require('./repositories/users');
     var rooms = require('./repositories/rooms');
     var emitter = require('./communication/emitter');
@@ -34,20 +34,19 @@ var socketController = (function () {
 
     function sendMessage(socket, messageDTO, callback) {
         var Message = require('./../server/models/message');
-        messageDTO.target = users.get(messageDTO.target_id).toDTO();
-        messageDTO.sender = users.get(messageDTO.sender_id).toDTO();
+        messageDTO.sender = socket._user.toDTO();
         var message = new Message(messageDTO);
-        var room = rooms.getByMessage(message);
-        var target = users.get(message.getTarget().id);
+        var room = rooms.get(messageDTO.room_id);
 
-        if (room.isNew()) {
-            socket._user.addRoom(room.getId());
-            target.addRoom(room.getId());
-            room.ok();
+        if (!room) {
+            callback({
+                message: 'Room not found'
+            });
+            return;
         }
 
         room.addMessage(message);
-        emitter.message(room, message, socket._user, target);
+        emitter.message(room, message, socket);
 
         callback();
     }
@@ -87,7 +86,7 @@ var socketController = (function () {
 
     function counter(socket, user) {
         var userId = user.getId();
-        counters[userId] = setInterval(function () {
+        counters[userId] = setInterval(function() {
             emitter.logoutUser(socket);
             users.remove(user);
 

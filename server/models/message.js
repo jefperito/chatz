@@ -1,36 +1,27 @@
 function Message(messageDTO) {
-	if (messageDTO) {
-		var validator = require('./../validator');
-		validator.message(messageDTO);
+    if (messageDTO) {
+        var validator = require('./../validator');
+        validator.message(messageDTO);
 
-		this.target = messageDTO.target;
-		this.sender = messageDTO.sender;
-		this.body = messageDTO.body;
-	}
+        this.sender = messageDTO.sender;
+        this.body = messageDTO.body;
+    }
 }
 
-Message.prototype.setTarget = function(target) {
-	this.target = target;
-};
-
 Message.prototype.setSender = function(sender) {
-	this.sender = sender;
+    this.sender = sender;
 };
 
 Message.prototype.setBody = function(body) {
-	this.body = body;
-};
-
-Message.prototype.getTarget = function() {
-	return this.target;
+    this.body = body;
 };
 
 Message.prototype.getSender = function() {
-	return this.sender;
+    return this.sender;
 };
 
 Message.prototype.getBody = function() {
-	return this.body;
+    return this.body;
 };
 
 module.exports = Message;

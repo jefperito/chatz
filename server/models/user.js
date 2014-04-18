@@ -56,11 +56,13 @@ User.prototype.toDTO = function() {
 };
 
 User.prototype.addRoom = function(room) {
-    this.sockets.forEach(function(socket) {
-        socket.join(room);
-    });
+    if (this.rooms.indexOf(room) == -1) {
+        this.sockets.forEach(function(socket) {
+            socket.join(room);
+        });
 
-    this.rooms.push(room);
+        this.rooms.push(room);
+    }
 };
 
 User.prototype.getRooms = function() {

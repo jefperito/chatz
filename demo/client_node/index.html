@@ -11,8 +11,6 @@
 
             var id = prompt('Digite o id', '1');
             var name = prompt('Digite o seu nome', 'Jeferson');
-            var target_id;
-            var me;
             var usersOnChat;
 
             chatz.addUser({id: id, name: name}, function (error, user) {
@@ -21,13 +19,11 @@
                     return ;
                 }
 
-                me = user;
-
-                $('#profile').append('<strong>ID:</strong> ' + me.id + '<br/>');
-                $('#profile').append('<strong>Nome:</strong> ' + me.name + '<br/>');
+                $('#profile').append('<strong>ID:</strong> ' + user.id + '<br/>');
+                $('#profile').append('<strong>Nome:</strong> ' + user.name + '<br/>');
 
                 // Entra na sala padrao
-                chatz.joinRoom(1, function(error) {
+                chatz.joinRoom('1', function(error) {
                     if (!error) console.log('entrou na sala');
                 });
 
@@ -44,9 +40,6 @@
                         $('#users_list').append($('<li>', {
                             id: 'ul_' + _id
                         }).append(usersOnChat[_id].name));
-                        if (id != _id) {
-                            target_id = _id;
-                        }
                     });
 
                     chatz.getRooms(function(rooms) {
@@ -61,7 +54,6 @@
 
             chatz.addEvent('newUser', function(user) {
                 usersOnChat[user.id] = user;
-                target_id = user.id;
                 $('#users_list').append($('<li>', {
                     id: 'ul_' + user.id
                 }).append(user.name));
@@ -73,18 +65,12 @@
 
             chatz.addEvent('receiveMsg', function(message) {
                 var sender = usersOnChat[message.sender.id];
-
-                if (sender.id != me.id) {
-                    target_id = sender.id;
-                }
-
                 $('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
             });
 
             $('#send_button').click(function() {
                 chatz.sendMessage({
-                    target_id: target_id,
-                    sender_id: me.id,
+                    room_id: 1,
                     body: document.getElementById('msg').value
                 },function(error) {
                     if (error) {
@@ -92,6 +78,7 @@
                         return;
                     }
 
+                    $('#msg_area').append('<b>' + name + ':</b> ' + document.getElementById('msg').value + '<br/>');
                     $('#msg').val('');
                 });
             });

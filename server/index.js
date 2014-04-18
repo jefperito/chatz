@@ -14,8 +14,8 @@ var configuration = {
 var io = require('socket.io').listen(config.PORT, configuration);
 
 // Protocol
-io.sockets.on('connection', function (socket) {
-    socket.on('login', function (userDTO, callback) {
+io.sockets.on('connection', function(socket) {
+    socket.on('login', function(userDTO, callback) {
         try {
             controller.login(socket, userDTO, callback);
         } catch (error) {
@@ -24,7 +24,7 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('sendMessage', function (messageDTO, callback) {
+    socket.on('sendMessage', function(messageDTO, callback) {
         try {
             controller.sendMessage(socket, messageDTO, callback);
         } catch (error) {
@@ -33,20 +33,20 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('getUsers', function (callback) {
+    socket.on('getUsers', function(callback) {
         controller.getUsers(socket, callback);
     });
 
-    socket.on('getRooms', function (callback) {
+    socket.on('getRooms', function(callback) {
         callback(controller.getRooms(socket));
     });
 
-    socket.on('joinRoom', function (roomId, callback) {
+    socket.on('joinRoom', function(roomId, callback) {
         controller.joinRoom(socket, roomId);
         callback();
     });
 
-    socket.on('disconnect', function () {
+    socket.on('disconnect', function() {
         controller.disconnect(socket);
     });
 });

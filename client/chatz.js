@@ -11,7 +11,7 @@ var chatz = (function() {
             socket = io.connect(url);
         } catch (e) {
             console.error('socket.io not loaded - start your server and insert the socket.io client library');
-            return ;
+            return;
         }
 
         socket.on('removeUser', function(user) {
@@ -35,8 +35,10 @@ var chatz = (function() {
 
     function addUser(user, callback) {
         if (user === undefined || user.id === undefined || user.name === undefined) {
-            callback({message: 'bad formed user'});
-            return ;
+            callback({
+                message: 'bad formed user'
+            });
+            return;
         }
 
         socket.emit('login', user, callback);
@@ -55,9 +57,11 @@ var chatz = (function() {
     }
 
     function sendMessage(message, callback) {
-        if (message === undefined || message.target_id === undefined || message.sender_id === undefined || message.body === undefined) {
-            callback({message: 'bad formed message'});
-            return ;
+        if (message === undefined || message.room_id === undefined || message.body === undefined) {
+            callback({
+                message: 'bad formed message'
+            });
+            return;
         }
 
         socket.emit('sendMessage', message, callback);
