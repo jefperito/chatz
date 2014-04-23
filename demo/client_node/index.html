@@ -5,6 +5,7 @@
     <script src="http://localhost:8081/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="./../../client/chatz.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript">
         $(document).ready(function() {
             chatz.init('http://localhost:8081');
@@ -19,12 +20,10 @@
                     return ;
                 }
 
-                $('#profile').append('<strong>ID:</strong> ' + user.id + '<br/>');
-                $('#profile').append('<strong>Nome:</strong> ' + user.name + '<br/>');
-
-                // Entra na sala padrao
                 chatz.joinRoom('1', function(error) {
-                    if (!error) console.log('entrou na sala');
+                    if (error) {
+                        alert('Não foi possível entrar na sala');
+                    }
                 });
 
                 chatz.getUsers(function(error, users) {
@@ -38,7 +37,8 @@
 
                     ids.forEach(function(_id) {
                         $('#users_list').append($('<li>', {
-                            id: 'ul_' + _id
+                            id: 'ul_' + _id,
+                            class: _id == user.id ? 'me' : ''
                         }).append(usersOnChat[_id].name));
                     });
 
@@ -83,15 +83,20 @@
                 });
             });
         });
+
+        function handle(event) {
+            if (event.keyCode == 13) {
+                $('#send_button').click();
+            }
+        }
     </script>
 </head>
 <body>
-    <div id="msg_area" style="height: 300px; width: 500px; background-color: #E8E8E8; float: left"></div>
-    <ul id="users_list" style="height: 300px; width: 150px; float: left; background-color: #666; color: #FFF"></ul><br/>
-    <div style="top: 310px; position: absolute">
-        <input id="msg" name="msg" type="text" size="50" />
+    <div id="msg_area" class="msg_area"></div>
+    <ul id="users_list" class="users_list"></ul><br/>
+    <div class="container_msg">
+        <input id="msg" name="msg" type="text" size="50" onkeyup="handle(event);" />
         <button id="send_button" type="button">Send</button>
     </div>
-    <div id="profile" style="height: 150px; width: 250px; float: left; background-color: #ADD190; position: absolute; top: 360px" />
 </body>
 </html>

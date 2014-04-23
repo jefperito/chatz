@@ -72,7 +72,7 @@ var socketController = (function() {
     }
 
     function disconnect(socket) {
-        if (socket._user) {
+        if (socket._user && users.get(socket._user.getId())) {
             var user = users.get(socket._user.getId());
             user.removeSocket(socket);
 

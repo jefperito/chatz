@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+.me {
+    background-color: blue;
+    border-color: #000;
+}
+
+.msg_area {
+    position: relative;
+    height: 500px;
+    width: 90%;
+    background-color: #FBFBFB;
+    float: left;
+}
+
+.users_list {
+    height: 500px;
+    width: 10%;
+    float: right;
+    background-color: #666;
+    color: #FFF;
+}
+
+.users_list ul {
+    margin-right: 10px;
+}
+
+.users_list li {
+    list-style-type: none;
+    text-align: right;
+    margin-right: 10px;
+    width: 95%;
+}
+
+.container_msg {
+    position: relative;
+}
+
+.container_msg input {
+    width: 90%;
+    height: 20px;
+}
+
+.container_msg button {
+    width: 9%;
+}
