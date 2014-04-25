@@ -8,10 +8,29 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script type="text/javascript">
         $(document).ready(function() {
+            var me;
+
+            function appendMessage (senderName, body) {
+                $('#msg_area').append('<span class="body_message"><b>' + senderName + ':</b> ' + body + '</span><br/>');
+            }
+
+            function appendUser (user) {
+                var liUser = $('<li>', {
+                    id: 'ul_' + user.id
+                });
+                var labelUser = $('<span/>', {
+                    class: 'user_name ' + (user.id == me.id ? 'me' : ''),
+                    text: user.name
+                });
+                liUser.append(labelUser);
+
+                $('#users_list').append(liUser);
+            }
+
             chatz.init('http://localhost:8081');
 
-            var id = prompt('Digite o id', '1');
-            var name = prompt('Digite o seu nome', 'Jeferson');
+            var id = prompt('Type your id');
+            var name = prompt('Type your name');
             var usersOnChat;
 
             chatz.addUser({id: id, name: name}, function (error, user) {
@@ -20,12 +39,13 @@
                     return ;
                 }
 
+                me = user;
+
                 chatz.joinRoom('1', function(error) {
                     if (error) {
                         alert('Não foi possível entrar na sala');
                     }
                 });
-
                 chatz.getUsers(function(error, users) {
                     if (error) {
                         alert('Houve um erro obtendo os usuários');
@@ -36,49 +56,41 @@
                     var ids = Object.keys(users);
 
                     ids.forEach(function(_id) {
-                        $('#users_list').append($('<li>', {
-                            id: 'ul_' + _id,
-                            class: _id == user.id ? 'me' : ''
-                        }).append(usersOnChat[_id].name));
+                        appendUser({id: _id, name: usersOnChat[_id].name});
                     });
 
                     chatz.getRooms(function(rooms) {
                         rooms.forEach(function(room) {
                             room.messages.forEach(function(message) {
-                                $('#msg_area').append('<b>' + message.sender.name + ':</b> ' + message.body + '<br/>');
+                                appendMessage(message.sender.name, message.body);
                             });
                         });
                     });
                 });
             });
-
             chatz.addEvent('newUser', function(user) {
                 usersOnChat[user.id] = user;
-                $('#users_list').append($('<li>', {
-                    id: 'ul_' + user.id
-                }).append(user.name));
+                appendUser(user);
             });
-
             chatz.addEvent('removeUser', function(user) {
                 $('#ul_' + user.id).remove();
             });
-
             chatz.addEvent('receiveMsg', function(message) {
                 var sender = usersOnChat[message.sender.id];
-                $('#msg_area').append('<b>' + sender.name + ':</b> ' + message.body + '<br/>');
+                appendMessage(sender.name, message.body);
             });
 
             $('#send_button').click(function() {
                 chatz.sendMessage({
                     room_id: 1,
-                    body: document.getElementById('msg').value
+                    body: $('#msg').val()
                 },function(error) {
                     if (error) {
                         alert('Houve um erro no envio de mensagem');
                         return;
                     }
 
-                    $('#msg_area').append('<b>' + name + ':</b> ' + document.getElementById('msg').value + '<br/>');
+                    appendMessage(name, $('#msg').val());
                     $('#msg').val('');
                 });
             });
@@ -95,7 +107,7 @@
     <div id="msg_area" class="msg_area"></div>
     <ul id="users_list" class="users_list"></ul><br/>
     <div class="container_msg">
-        <input id="msg" name="msg" type="text" size="50" onkeyup="handle(event);" />
+        <input id="msg" name="msg" type="text" onkeyup="handle(event);" />
         <button id="send_button" type="button">Send</button>
     </div>
 </body>

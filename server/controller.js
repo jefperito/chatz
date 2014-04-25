@@ -22,7 +22,7 @@ var socketController = (function() {
             emitter.newUser(socket);
         } else {
             if (counters.hasOwnProperty(userPersisted.getId())) {
-                clearInterval(userPersisted.getId());
+                clearInterval(counters[userPersisted.getId()]);
             }
         }
 

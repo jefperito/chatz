@@ -4,8 +4,7 @@
 }
 
 .me {
-    background-color: blue;
-    border-color: #000;
+    color: yellow !important;
 }
 
 .msg_area {
@@ -20,8 +19,8 @@
     height: 500px;
     width: 10%;
     float: right;
-    background-color: #666;
-    color: #FFF;
+    border-color: #000;
+    background-color: #302B54;
 }
 
 .users_list ul {
@@ -30,9 +29,18 @@
 
 .users_list li {
     list-style-type: none;
+    margin-right: 10px;
+    width: 100%;
+    height: auto;
+}
+
+.user_name {
+    width: 90%;
+    height: 100%;
     text-align: right;
     margin-right: 10px;
-    width: 95%;
+    color: #FFF;
+    float: right;
 }
 
 .container_msg {
@@ -46,4 +54,8 @@
 
 .container_msg button {
     width: 9%;
+}
+
+.body_message {
+    margin-left: 10px;
 }

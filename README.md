@@ -10,11 +10,11 @@ Chat em desenvolvimento...
  - npm install
 
 ## O que falta fazer para o primeiro release
+ - Documentação em inglês
+
+## TODO
  - Resolver referência cíclica entre socket e user.
  - Refatorar getters/setters para as built in features
- - browserify (talvez)
- - Documentação em inglês
- - Demos
 
 ## Testes
 Rodar o code coverage com mocha e istanbul:
