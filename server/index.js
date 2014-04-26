@@ -4,6 +4,8 @@ var controller = require('./controller');
 
 db.init();
 
+console.log(process.env.PORT);
+
 var configuration = {
     'log level': config.SOCKET_LOG_LEVEL,
     'browser client minification': true,
