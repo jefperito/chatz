@@ -18,7 +18,7 @@ Real time chat built with node.js and socket.io
     - Works on smartphones and tablets
     - Websocket/http-polling
 
-## Testes
+## Tests
 Run the code coverage with mocha and istanbul:
  - UNIX: istanbul cover _mocha -- -R spec -u tdd ./test/
  - WINDOWS: istanbul cover node_modules/mocha/bin/_mocha -- -R spec -u tdd ./test/
