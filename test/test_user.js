@@ -59,5 +59,19 @@ suite('user', function() {
 
             assert.deepEqual(userData, user.toDTO());
         });
+
+        test('should add one room to the user', function() {
+            var userData = {
+                id: 1,
+                name: 'Jeferson Viana Perito'
+            };
+            var roomFake = {};
+            var user = new User(userData);
+            user.addRoom('123456');
+
+            assert.deepEqual([
+                '123456'
+            ], user.getRooms());
+        });
     });
 });
