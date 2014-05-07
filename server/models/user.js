@@ -5,6 +5,7 @@ function User(userDTO) {
 
         this.name = userDTO.name;
         this.id = userDTO.id;
+        this.online = true;
     }
 
     this.sockets = [];
@@ -48,9 +49,21 @@ User.prototype.getId = function() {
     }
 };
 
+User.prototype.setPublicID = function(publicID) {
+    this.publicID = publicID;
+}
+
+User.prototype.isOnline = function() {
+    return this.online;
+}
+
+User.prototype.toggleOnline = function() {
+    this.online = !this.online;
+}
+
 User.prototype.toDTO = function() {
     return {
-        id: this.id,
+        id: this.publicID,
         name: this.name
     };
 };

@@ -12,7 +12,7 @@ suite('emitter', function() {
             };
 
             var fakeUser = new User(dataUser);
-
+            fakeUser.setPublicID(1);
             var socketFake = {
                 broadcast: {
                     emit: function(protocolName, newUser) {
@@ -33,6 +33,7 @@ suite('emitter', function() {
             };
 
             var fakeUser = new User(dataUser);
+            fakeUser.setPublicID(1);
 
             var socketDummy = {
                 broadcast: {

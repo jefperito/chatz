@@ -53,10 +53,8 @@
                     }
 
                     usersOnChat = users;
-                    var ids = Object.keys(users);
-
-                    ids.forEach(function(_id) {
-                        appendUser({id: _id, name: usersOnChat[_id].name});
+                    usersOnChat.forEach(function(user) {
+                        appendUser({id: user.id, name: user.name});
                     });
 
                     chatz.getRooms(function(rooms) {
@@ -69,15 +67,20 @@
                 });
             });
             chatz.addEvent('newUser', function(user) {
-                usersOnChat[user.id] = user;
+                usersOnChat.push(user);
                 appendUser(user);
             });
             chatz.addEvent('removeUser', function(user) {
                 $('#ul_' + user.id).remove();
             });
             chatz.addEvent('receiveMsg', function(message) {
-                var sender = usersOnChat[message.sender.id];
-                appendMessage(sender.name, message.body);
+                for (var i = 0; i < usersOnChat.length; i++) {
+                    if (usersOnChat[i].id == message.sender.id) {
+                        var sender = usersOnChat[i];
+                        appendMessage(sender.name, message.body);
+                        break;
+                    }
+                }
             });
 
             $('#send_button').click(function() {

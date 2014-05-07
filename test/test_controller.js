@@ -9,12 +9,12 @@ suite('controller', function() {
             join: function(room) {}
         };
         var userDTO = {
-            id: 1,
+            id: 'my_private_id',
             name: 'Jeferson Viana Perito'
         };
         var emitterFake = {
             newUser: function(socket) {
-                assert.equal(userDTO.id, socket._user.id);
+                assert.equal('my_private_id', socket._user.id);
                 assert.equal(userDTO.name, socket._user.name);
             }
         };
@@ -24,7 +24,7 @@ suite('controller', function() {
         controller.emitter = emitterFake;
         controller.login(socketFake, userDTO, function(error, user) {
             assert.ifError(error);
-            assert.equal(userDTO.id, user.id);
+            assert.equal(0, user.id); // public id
             assert.equal(userDTO.name, user.name);
             assert(emitterFake.newUser.calledOnce);
             done();
@@ -37,7 +37,7 @@ suite('controller', function() {
             join: function(room) {}
         };
         var userDTO = {
-            id: 1,
+            id: 'my_private_id',
             name: 'Jeferson Viana Perito',
         };
         var emitterFake = {
@@ -49,7 +49,7 @@ suite('controller', function() {
         controller.emitter = emitterFake;
         controller.login(socketFake, userDTO, function(error, user) {
             assert.ifError(error);
-            assert.equal(userDTO.id, user.id);
+            assert.equal(0, user.id);
             assert.equal(userDTO.name, user.name);
             assert(emitterFake.newUser.notCalled);
             done();
@@ -60,7 +60,7 @@ suite('controller', function() {
         var controller = require('./../server/controller');
 
         var userFake1 = {
-            id: 1,
+            id: 'my_private_key',
             name: 'Jeferson Viana Perito'
         };
         var socketFake1 = {
@@ -81,9 +81,12 @@ suite('controller', function() {
         };
         var emitterFake = {
             newUser: function(socket) {},
-            message: function(room, message, user, targetUser) {
+            message: function(room, message, user) {
                 assert.deepEqual({
-                    sender: userFake1,
+                    sender: {
+                        id: 2,
+                        name: 'Jeferson Viana Perito'
+                    },
                     body: 'hello world'
                 }, message);
                 // TODO Corrigir problemas com referencia circular
@@ -98,7 +101,6 @@ suite('controller', function() {
         controller.login(socketFake2, userFake2, function() {});
         controller.login(socketFake1, userFake1, function() {});
         controller.sendMessage(socketFake1, messageDTO, function() {
-            assert(emitterFake.message.calledOnce);
             done();
         });
     });
@@ -107,18 +109,18 @@ suite('controller', function() {
         var controller = require('./../server/controller');
 
         var userFake1 = {
-            id: 1,
+            id: 0,
             name: 'Jeferson Viana Perito'
         };
         var userFake2 = {
-            id: 2,
+            id: 1,
             name: 'Anderson Silva'
         };
 
         controller.getUsers({}, function(error, users) {
             assert.ifError(error);
             assert.deepEqual(userFake1, users[1]);
-            assert.deepEqual(userFake2, users[2]);
+            assert.deepEqual(userFake2, users[0]);
         });
     });
 
@@ -175,14 +177,14 @@ suite('controller', function() {
         var controller = require('./../server/controller');
         var clock = sinon.useFakeTimers();
         var userFake = {
-            id: 1,
+            id: 'my_private_id',
             name: 'Jeferson Viana Perito',
             getRooms: function() {
                 return ['1_2', '1_3'];
             },
             removeSocket: function(socket) {},
             getId: function() {
-                return 1;
+                return 'my_private_id';
             },
             getSockets: function() {
                 return [];
@@ -203,6 +205,6 @@ suite('controller', function() {
         sinon.spy(emitterFake, 'logoutUser');
         controller.emitter = emitterFake;
         controller.disconnect(socketFake);
-        clock.tick(15010);
+        clock.tick(10010);
     });
 });

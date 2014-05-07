@@ -11,24 +11,32 @@ var users = (function() {
         usersMap = map;
     }
 
-    function get(id) {
-        return usersMap[id];
+    function getByIndex(index) {
+        var keys = Object.keys(usersMap);
+        return usersMap[keys[index]];
+    }
+
+    function getByKey(key) {
+        return usersMap[key];
     }
 
     function add(user) {
+        user.setPublicID(Object.keys(usersMap).length);
         usersMap[user.getId()] = user;
     }
 
     function remove(user) {
-        delete usersMap[user.getId()];
+        usersMap[user.getId()].toggleOnline();
     }
 
-    function toDTO() {
-        var usersDTO = {};
+    function getOnlineDTO() {
+        var usersDTO = [];
         var keys = Object.keys(usersMap);
 
         keys.forEach(function(key) {
-            usersDTO[key] = usersMap[key].toDTO();
+            if (usersMap[key].isOnline()) {
+                usersDTO.push(usersMap[key].toDTO());
+            }
         });
 
         return usersDTO;
@@ -38,9 +46,10 @@ var users = (function() {
         getMap: getMap,
         setMap: setMap,
         add: add,
-        get: get,
+        getByIndex: getByIndex,
+        getByKey: getByKey,
         remove: remove,
-        toDTO: toDTO
+        getOnlineDTO: getOnlineDTO
     };
 })();
 

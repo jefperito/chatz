@@ -13,13 +13,15 @@ var socketController = (function() {
     function login(socket, userDTO, callback) {
         var User = require('./../server/models/user');
         var user = new User(userDTO);
-        var userPersisted = users.get(user.getId());
+        var userPersisted = users.getByKey(user.getId());
 
         if (userPersisted === undefined) {
             userPersisted = user;
             users.add(userPersisted);
             socket._user = userPersisted;
             emitter.newUser(socket);
+        } else if (!userPersisted.isOnline()) {
+            userPersisted.toggleOnline();
         } else {
             if (counters.hasOwnProperty(userPersisted.getId())) {
                 clearInterval(counters[userPersisted.getId()]);
@@ -47,12 +49,11 @@ var socketController = (function() {
 
         room.addMessage(message);
         emitter.message(room, message, socket);
-
         callback();
     }
 
     function getUsers(socket, callback) {
-        callback(null, users.toDTO());
+        callback(null, users.getOnlineDTO());
     }
 
     function joinRoom(socket, roomId) {
@@ -72,10 +73,9 @@ var socketController = (function() {
     }
 
     function disconnect(socket) {
-        if (socket._user && users.get(socket._user.getId())) {
-            var user = users.get(socket._user.getId());
+        if (socket._user && users.getByKey(socket._user.getId())) {
+            var user = users.getByKey(socket._user.getId());
             user.removeSocket(socket);
-
             if (user.getSockets().length === 0) {
                 counter(socket, user);
             }
