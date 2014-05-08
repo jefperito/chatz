@@ -59,3 +59,8 @@
 .body_message {
     margin-left: 10px;
 }
+
+.body_system_message {
+    margin-left: 10px;
+    color: red;
+}

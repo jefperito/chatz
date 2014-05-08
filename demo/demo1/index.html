@@ -11,7 +11,11 @@
             var me;
 
             function appendMessage (senderName, body) {
-                $('#msg_area').append('<span class="body_message"><b>' + senderName + ':</b> ' + body + '</span><br/>');
+                $('#msg_area').append('<span class="body_message"><b>' + senderName + '</b> ' + body + '</span><br/>');
+            }
+
+            function appendSystemMessage (body) {
+                $('#msg_area').append('<span class="body_system_message">' + body + '</span><br/>');   
             }
 
             function appendUser (user) {
@@ -69,9 +73,11 @@
             chatz.addEvent('newUser', function(user) {
                 usersOnChat.push(user);
                 appendUser(user);
+                appendSystemMessage('Usuario <b>' + user.name + '</b> entrou na sala');
             });
             chatz.addEvent('removeUser', function(user) {
                 $('#ul_' + user.id).remove();
+                appendSystemMessage('Usuario <b>' + user.name + '</b> saiu na sala');
             });
             chatz.addEvent('receiveMsg', function(message) {
                 for (var i = 0; i < usersOnChat.length; i++) {
