@@ -1,6 +1,6 @@
 {
     "name": "Chatz",
-    "version": "0.0.1",
+    "version": "0.0.1-12",
     "author": "Jeferson Viana Perito",
     "scripts": {
         "start": "node server/index.js",
@@ -25,5 +25,9 @@
         "node": true,
         "undef": false,
         "unused": true
+    },
+    "subdomain": "jefperito-chatz",
+    "engines": {
+        "node": "0.10.x"
     }
 }
