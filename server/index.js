@@ -12,8 +12,7 @@ var configuration = {
     transports: ['websocket', 'xhr-polling']
 };
 
-var app = require('http').createServer(handler);
-var io = require('socket.io').listen(app, configuration);
+var io = require('socket.io').listen(config.PORT, configuration);
 
 // Protocol
 io.sockets.on('connection', function(socket) {
@@ -52,20 +51,5 @@ io.sockets.on('connection', function(socket) {
         controller.disconnect(socket);
     });
 });
-
-function handler(req, res) {
-    fs.readFile(__dirname + '/../demo/demo1/index.html',
-        function(err, data) {
-            if (err) {
-                res.writeHead(500);
-                return res.end('Error loading index.html');
-            }
-
-            res.writeHead(200);
-            res.end(data);
-        });
-}
-
-app.listen(process.env.PORT || 80);
 
 console.log('Running...');

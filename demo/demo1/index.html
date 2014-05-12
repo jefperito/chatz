@@ -2,11 +2,10 @@
 <html lang="pt-BR">
 <head>
     <title>CLIENTE DO CHAT 0.1</title>
-    <script src="http://jefperito-chatz.nodejitsu.com/socket.io/socket.io.js"></script>
+    <script src="http://localhost:9000/socket.io/socket.io.js"></script>
     <script type="text/javascript" src="./jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="./../../client/chatz.js"></script>
     <link rel="stylesheet" type="text/css" href="./styles.css">
-    <script type="application/javascript" src="http://jsonip.appspot.com/?callback=getip"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             var me;
@@ -32,7 +31,7 @@
                 $('#users_list').append(liUser);
             }
 
-            chatz.init('http://jefperito-chatz.nodejitsu.com/');
+            chatz.init('http://localhost:9000/');
 
             var id = prompt('Type your id');
             var name = prompt('Type your name');
