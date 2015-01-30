@@ -9,7 +9,7 @@ var configuration = {
     'log level': config.SOCKET_LOG_LEVEL,
     'browser client minification': true,
     'origins': config.ORIGINS,
-    transports: ['websocket', 'xhr-polling']
+    transports: ['websocket', 'polling']
 };
 
 var io = require('socket.io').listen(config.PORT, configuration);
